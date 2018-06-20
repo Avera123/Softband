@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,14 +20,15 @@ namespace Softband.Maestros
         {
             InitializeComponent();
             FillCbCategories();
-            GetAllProducts();
+            CargarProductsGrid();
         }
 
         GenericQuerys GenericQuerys = new GenericQuerys();
         List<CategoriaProduct> ListCategories = new List<CategoriaProduct>();
         List<Product> ListProducts = new List<Product>();
-        DaoProduct DaoProduct = new DaoProduct();
+        DaoProduct daoProduct = new DaoProduct();
         Product newProduct = new Product();
+        DataTable dt;
 
         public void FillCbCategories()
         {
@@ -38,35 +40,21 @@ namespace Softband.Maestros
             cbCategoryProduct.DisplayMember = "Name";
         }
 
-        public void GetAllProducts()
+        //Metodo de Carga de datos para DataGrid
+        public void CargarProductsGrid()
         {
-            ListProducts = DaoProduct.getAllProducts();
-            lvProducts.Clear();
-            ListViewItem listProdctus = new ListViewItem();
+            dt = daoProduct.fillProductsDT();
+            dgvProducts.DataSource = dt;
 
-            foreach (Product _product in ListProducts)
-            {
-                //string active = "";
-                //if (_product.Active) { active = "ACTIVO"; } else { active = "INACTIVO"; };
-                ListViewItem lista = new ListViewItem("°: " + _product.Stock.ToString() +" | " +_product.Code.ToString() + " | " + _product.Name.ToString()+" | "+_product.Description+" | "+_product.CostSale.ToString("C"));
-                lvProducts.Items.Add(lista);
-            }
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
-        }
-
-        private void btnMinimize_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
+            dgvProducts.Columns[0].HeaderText = "ID";
+            dgvProducts.Columns[1].HeaderText = "CÓDIGO";
+            dgvProducts.Columns[2].HeaderText = "NOMBRE";
+            dgvProducts.Columns[3].HeaderText = "IDCATEGORÍA";
+            dgvProducts.Columns[4].HeaderText = "CATEGORÍA";
+            dgvProducts.Columns[5].HeaderText = "DESCRIPCIÓN";
+            dgvProducts.Columns[6].HeaderText = "VENTA";
+            dgvProducts.Columns[7].HeaderText = "COMPRA";
+            dgvProducts.Columns[8].HeaderText = "STOCK";
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -91,9 +79,9 @@ namespace Softband.Maestros
             {
                 if (txtCodeProduct.Text.Trim() != "")
                 {
-                    if (DaoProduct.ExistProduct(txtCodeProduct.Text.Trim()))
+                    if (daoProduct.ExistProduct(txtCodeProduct.Text.Trim()))
                     {
-                        newProduct = DaoProduct.selectProduct(txtCodeProduct.Text.Trim());
+                        newProduct = daoProduct.selectProduct(txtCodeProduct.Text.Trim());
 
                         txtCodeProduct.Text = newProduct.Code.Trim();
                         txtNameProduct.Text = newProduct.Name.Trim();
@@ -105,9 +93,8 @@ namespace Softband.Maestros
                     }
                     else
                     {
-                        btnClear_Click(null, null);
-                        MessageBox.Show("Banda no existente",
-                            "Validación",
+                        MessageBox.Show("Producto no existente",
+                            "Validación del sistema",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation);
                     }
@@ -116,14 +103,14 @@ namespace Softband.Maestros
                 {
                     btnClear_Click(null, null);
                     MessageBox.Show("El Campo Código no debe estar vacío",
-                        "Validación",
+                        "Validación del sistema",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Exclamation);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar datos de la Banda:\n" + ex.Message,
+                MessageBox.Show("Error al cargar datos del Producto:\n" + ex.Message,
                     "Error del Sistema",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -147,9 +134,10 @@ namespace Softband.Maestros
                     newProduct.CostSale =  Convert.ToDouble(txtCostSale.Text.Trim().Replace("$",""));
                     newProduct.CostBuy = Convert.ToDouble(txtCostBuy.Text.Trim().Replace("$", ""));
                     newProduct.Stock = Convert.ToInt32(txtStock.Text.Trim());
-                    GetAllProducts();
-                    DaoProduct.insertProduct(newProduct);
-                    MessageBox.Show("Banda guardada:\n" + newProduct.Name,
+
+                    daoProduct.insertProduct(newProduct);
+                    CargarProductsGrid();
+                    MessageBox.Show("Producto guardado:\n" + newProduct.Name,
                         "Información",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
@@ -169,6 +157,133 @@ namespace Softband.Maestros
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        private void dgvProducts_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow dgvR = new DataGridViewRow();
+            dgvR = dgvProducts.Rows[this.dgvProducts.CurrentCell.RowIndex];
+
+            newProduct.Id = Convert.ToInt32(dgvR.Cells[0].Value);
+            newProduct.Code = dgvR.Cells[1].Value.ToString();
+            newProduct.Name = dgvR.Cells[2].Value.ToString();
+            newProduct.IdCategory = Convert.ToInt32(dgvR.Cells[3].Value);
+            newProduct.Description = dgvR.Cells[5].Value.ToString();
+            newProduct.CostSale = Convert.ToDouble(dgvR.Cells[6].Value);
+            newProduct.CostBuy = Convert.ToDouble(dgvR.Cells[7].Value);
+            newProduct.Stock = Convert.ToInt32(dgvR.Cells[8].Value);
+
+            if (dgvR.Cells[1].Value.ToString() != "")
+            {
+                txtCodeProduct.Text = newProduct.Code;
+                txtNameProduct.Text = newProduct.Name;
+                cbCategoryProduct.SelectedValue = newProduct.IdCategory;
+                txtDescriptionProduct.Text = newProduct.Description;
+                txtCostBuy.Text = newProduct.CostBuy.ToString("C");
+                txtCostSale.Text = newProduct.CostSale.ToString("C");
+                txtStock.Text = newProduct.Stock.ToString();
+            }
+        }
+
+        private void txtSearchNameClient_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string Filter = "";
+            if (rdCodigo.Checked)
+            {
+                Filter = "code";
+            }
+            else if (rdNombre.Checked)
+            {
+                Filter = "name";
+            }
+            else if (rdDescription.Checked)
+            {
+                Filter = "description";
+            }
+
+            dt.DefaultView.RowFilter = (Filter + " like '%" + txtSearchNameClient.Text.Trim() + "%'");
+            dgvProducts.DataSource = dt.DefaultView;
+        }
+
+        //Botón Exportar a Excel
+        #region Botón de ExportExcel
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Documentos de Excel (*.xls)|*.xls";
+            sfd.FileName = "Softband - Productos - " + DateTime.Now.ToShortDateString().Replace("/", "_") + ".xls";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                //ToCsV(dataGridView1, @"c:\export.xls");
+                ToExcel(dgvProducts, sfd.FileName); // Here dataGridview1 is your grid view name
+            }
+        }
+
+        public void ToExcel(DataGridView dGV, string filename)
+        {
+            string stOutput = "";
+            // Export titles:
+            string sHeaders = "";
+
+            for (int j = 0; j < dGV.Columns.Count; j++)
+                sHeaders = sHeaders.ToString() + Convert.ToString(dGV.Columns[j].HeaderText) + "\t";
+            stOutput += sHeaders + "\r\n";
+            // Export data.
+            for (int i = 0; i < dGV.RowCount; i++)
+            {
+                string stLine = "";
+                for (int j = 0; j < dGV.Rows[i].Cells.Count; j++)
+                    stLine = stLine.ToString() + Convert.ToString(dGV.Rows[i].Cells[j].Value) + "\t";
+                stOutput += stLine + "\r\n";
+            }
+            Encoding utf16 = Encoding.GetEncoding(1254);
+            byte[] output = utf16.GetBytes(stOutput);
+            FileStream fs = new FileStream(filename, FileMode.Create);
+            BinaryWriter bw = new BinaryWriter(fs);
+            bw.Write(output, 0, output.Length); //write the encoded file
+            bw.Flush();
+            bw.Close();
+            fs.Close();
+        }
+
+        public void releaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show("Exception Occured while releasing object " + ex.ToString());
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+        #endregion
+
+        private void txtCodeProduct_Leave(object sender, EventArgs e)
+        {
+            btnSearch_Click(null, null);
+        }
+
+        private void btnRefreshGrid_Click(object sender, EventArgs e)
+        {
+            CargarProductsGrid();
+        }
+
+        private void btnNewCategory_Click(object sender, EventArgs e)
+        {
+            CategoriaProducto newCat = new CategoriaProducto();
+            newCat.ShowDialog();
+        }
+
+        private void btnRefreshCategories_Click(object sender, EventArgs e)
+        {
+            FillCbCategories();
         }
     }
 }

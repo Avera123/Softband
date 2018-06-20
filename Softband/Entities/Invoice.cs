@@ -11,7 +11,9 @@ namespace Softband.Entities
         public int Id { get; set; }
         public string Code { get; set; }
         public string Identification { get; set; }
-        public DateTime Fecha { get; set; }
+        public string NameClient { get; set; }
+        public string Band { get; set; }
+        public string Fecha { get; set; }
         public Double Amount { get; set; }
         public int IdAccountIn { get; set; }
         public bool Active { get; set; }

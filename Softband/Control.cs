@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using Softband.Maestros;
 using Softband.Mae;
 using Softband.Generics;
+using Softband.Reports;
+using Softband.Reports.Reports;
 
 namespace Softband
 {
@@ -129,6 +131,72 @@ namespace Softband
         {
             Promo promo = new Promo();
             promo.ShowDialog();
+        }
+
+        private void categoríasDeMovimientosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CategoriaMovimientos newCate = new CategoriaMovimientos();
+            newCate.Show();
+        }
+
+        private void ingresosEgresosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IngresosYEgresos newInEg = new IngresosYEgresos();
+            newInEg.Show();
+        }
+
+        private void ventasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Ventas ven = new Ventas();
+            ven.ShowDialog();
+        }
+
+        private void movimientosEntreCuentasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MovCuentas accountMovs = new MovCuentas();
+            accountMovs.ShowDialog();
+        }
+
+        private void diarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VentasDia ventas = new VentasDia();
+            ventas.Show();
+        }
+
+        private void mensualToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VentasMes ventasMes = new VentasMes();
+            ventasMes.Show();
+        }
+
+        private void anualToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VentasAnual ventasAnual = new VentasAnual();
+            ventasAnual.Show();
+        }
+
+        private void cuadreDeCajasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CuadreCajas cuadre = new CuadreCajas();
+            cuadre.Show();
+        }
+
+        private void proveedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Proveedores provider = new Proveedores();
+            provider.Show();
+        }
+
+        private void cuadreDeInventarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CuadreInventarioStock newStock = new CuadreInventarioStock();
+            newStock.Show();
+        }
+
+        private void registroDeComprasYActualizaciónDeInventarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Compras comp = new Compras();
+            comp.Show();
         }
     }
 }

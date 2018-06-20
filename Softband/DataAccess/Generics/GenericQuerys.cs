@@ -24,7 +24,7 @@ namespace Softband.DataAccess.Generics
         {
             List<Bank> ListBanks = new List<Bank>();
 
-            string Query = "SELECT id, code, name, active  FROM banco WHERE active=1;";
+            string Query = "SELECT id, name FROM banco;";
 
             MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
 
@@ -38,13 +38,13 @@ namespace Softband.DataAccess.Generics
                 {
                     newBank = new Bank();
                     newBank.Id = (int)reader["id"];
-                    newBank.Code = (string)reader["code"];
                     newBank.Name = (string)reader["name"];
-                    newBank.Active = (bool)reader["active"];
 
                     ListBanks.Add(newBank);
                 }
             }
+
+            Cmm.Connection.Close();
 
             return ListBanks;
         }
@@ -53,7 +53,7 @@ namespace Softband.DataAccess.Generics
         {
             List<Band> ListBands = new List<Band>();
 
-            string Query = "SELECT id, code, name, active  FROM banda WHERE active=1;";
+            string Query = "SELECT id, name FROM banda;";
 
             MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
 
@@ -67,13 +67,13 @@ namespace Softband.DataAccess.Generics
                 {
                     newBand = new Band();
                     newBand.Id = (int)reader["id"];
-                    newBand.Code = (string)reader["code"];
                     newBand.Name = (string)reader["name"];
-                    newBand.Active = (bool)reader["active"];
 
                     ListBands.Add(newBand);
                 }
             }
+
+            Cmm.Connection.Close();
 
             return ListBands;
         }
@@ -106,6 +106,8 @@ namespace Softband.DataAccess.Generics
                 }
             }
 
+            Cmm.Connection.Close();
+
             return ListPromos;
         }
 
@@ -113,7 +115,7 @@ namespace Softband.DataAccess.Generics
         {
             List<Account> ListAccounts = new List<Account>();
 
-            string Query = "SELECT * FROM cuenta WHERE active=1;";
+            string Query = "SELECT * FROM cuenta;";
 
             MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
 
@@ -127,17 +129,17 @@ namespace Softband.DataAccess.Generics
                 {
                     newAccount = new Account();
                     newAccount.Id = (int)reader["id"];
-                    newAccount.Code = (string)reader["code"];
                     newAccount.Name = (string)reader["name"];
                     newAccount.IdBank = (int)reader["idbank"];
                     newAccount.Description = (string)reader["description"];
                     newAccount.Type = (int)reader["type"];
-                    newAccount.Active = (bool)reader["active"];
                     newAccount.Amount = Convert.ToDouble(reader["amount"]);
 
                     ListAccounts.Add(newAccount);
                 }
             }
+
+            Cmm.Connection.Close();
 
             return ListAccounts;
         }
@@ -160,13 +162,14 @@ namespace Softband.DataAccess.Generics
                 {
                     CatMovement = new CategoryMovements();
                     CatMovement.Id = (int)reader["id"];
-                    CatMovement.Code = (string)reader["code"];
                     CatMovement.Name = (string)reader["name"];
                     CatMovement.Description = (string)reader["description"];
 
                     ListCategories.Add(CatMovement);
                 }
             }
+
+            Cmm.Connection.Close();
 
             return ListCategories;
         }
@@ -175,7 +178,7 @@ namespace Softband.DataAccess.Generics
         {
             List<CategoriaProduct> ListCategory = new List<CategoriaProduct>();
 
-            string Query = "SELECT id, code, name, active  FROM categoriaproducto WHERE active=1;";
+            string Query = "SELECT id, name  FROM categoriaproducto;";
 
             MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
 
@@ -189,13 +192,13 @@ namespace Softband.DataAccess.Generics
                 {
                     newCategory = new CategoriaProduct();
                     newCategory.Id = (int)reader["id"];
-                    newCategory.Code = (string)reader["code"];
                     newCategory.Name = (string)reader["name"];
-                    newCategory.Active = (bool)reader["active"];
 
                     ListCategory.Add(newCategory);
                 }
             }
+
+            Cmm.Connection.Close();
 
             return ListCategory;
         }
@@ -221,7 +224,23 @@ namespace Softband.DataAccess.Generics
             DataTable dt = new DataTable();
             try
             {
-                MySqlDataAdapter da = new MySqlDataAdapter("Select id, code, name, description, costsale, stock From producto", ConectDB.getConection());
+                MySqlDataAdapter da = new MySqlDataAdapter("Select id AS ID, code AS CODIGO, name AS NOMBRE, description AS DESCRIPCION, costbuy AS COSTO, stock From producto", ConectDB.getConection());
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en la carga de datos: " + ex.Message);
+            }
+
+            return dt;
+        }
+
+        public DataTable fillBanksDT()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                MySqlDataAdapter da = new MySqlDataAdapter("Select id, name From banco", ConectDB.getConection());
                 da.Fill(dt);
             }
             catch (Exception ex)
@@ -277,6 +296,9 @@ namespace Softband.DataAccess.Generics
                     Consec = 1;
                 }
             }
+
+            Cmm.Connection.Close();
+            reader.Close();
 
             return Consec;
         }

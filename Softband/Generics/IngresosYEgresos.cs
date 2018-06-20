@@ -1,6 +1,7 @@
 ﻿using Softband.DataAccess.DaoEntities;
 using Softband.DataAccess.Generics;
 using Softband.Entities;
+using Softband.Mae;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -99,6 +100,7 @@ namespace Softband.Generics
                     MoveMoney.IdTypeMovement = cbTipoMovimiento.SelectedIndex;
                     MoveMoney.Amount = Convert.ToDouble(txtAmount.Text.Trim());
                     MoveMoney.Description = txtDescription.Text.Trim();
+                    MoveMoney.Date = dtpFecha.Value.ToShortDateString();
                     try
                     {
                         MovesMoney.insertMovementMoney(MoveMoney);
@@ -123,6 +125,17 @@ namespace Softband.Generics
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        private void btnCrearCategoria_Click(object sender, EventArgs e)
+        {
+            CategoriaMovimientos newCat = new CategoriaMovimientos();
+            newCat.ShowDialog();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            FillCbCategoriesMovements();
         }
     }
 }

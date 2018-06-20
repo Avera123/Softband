@@ -2,6 +2,7 @@
 using Softband.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,49 +17,41 @@ namespace Softband.DataAccess.DaoEntities
         List<CategoryMovements> Cats = new List<CategoryMovements>();
         private string Query;
 
-
-        public List<CategoryMovements> getAllCats()
+        //Metodo de carga de datos para grid
+        public DataTable fillCategoriesDT()
         {
-            List<CategoryMovements> ListCats = new List<CategoryMovements>();
-
-            string Query = "SELECT * FROM categoriamovimientos;";
-
-            MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
-
-            MySqlDataReader reader;
-
-            reader = Cmm.ExecuteReader();
-
-            while (reader.Read())
+            DataTable dt = new DataTable();
+            try
             {
-                newCatMovements = new CategoryMovements();
-
-                newCatMovements.Id = (int)reader["id"];
-                newCatMovements.Code = (string)reader["code"];
-                newCatMovements.Name = (string)reader["name"];
-                newCatMovements.Description = (string)reader["description"];
-
-                ListCats.Add(newCatMovements);
+                MySqlDataAdapter da = new MySqlDataAdapter("Select id, name, description From categoriamovimientos", ConectDB.getConection());
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en la carga de bancos: " + ex.Message);
             }
 
-            return ListCats;
+            return dt;
         }
 
+        //Metodo de inserccion de Categorias
         public void insertCatproduct(CategoryMovements _CatMovement)
         {
             try
             {
-                if (ExistCatMovement(_CatMovement.Code))
+                if (ExistCatMovement(_CatMovement.Id))
                 {
-                    Query = "UPDATE categoriamovimientos SET name='" + _CatMovement.Name.Trim() + "', description='" + _CatMovement.Description + "' WHERE code='" + _CatMovement.Code.Trim() + "';";
+                    Query = "UPDATE categoriamovimientos SET name='" + _CatMovement.Name.Trim() + "', description='" + _CatMovement.Description + "' WHERE id='" + _CatMovement.Id + "';";
                 }
                 else
                 {
-                    Query = "INSERT INTO categoriamovimientos(code, name, description) VALUES('" + _CatMovement.Code.Trim() + "','" + _CatMovement.Name.Trim() + "','" + _CatMovement.Description + "');";
+                    Query = "INSERT INTO categoriamovimientos(name, description) VALUES('" + _CatMovement.Name.Trim() + "','" + _CatMovement.Description + "');";
                 }
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 Cmm.ExecuteNonQuery();
+
+                Cmm.Connection.Close();
             }
             catch (Exception ex)
             {
@@ -66,11 +59,12 @@ namespace Softband.DataAccess.DaoEntities
             }
         }
 
-        public bool deleteCatMovements(string _Code)
+        //Metodo de eliminacion de CAtegorias
+        public bool deleteCatMovements(int _Id)
         {
             try
             {
-                string Query = "DELETE FROM categoriamovimientos WHERE code='" + _Code.Trim() + "';";
+                string Query = "DELETE FROM categoriamovimientos WHERE id='" + _Id + "';";
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 return Convert.ToBoolean(Cmm.ExecuteNonQuery());
@@ -85,9 +79,10 @@ namespace Softband.DataAccess.DaoEntities
             }
         }
 
-        public CategoryMovements selectCatMovements(string _Code)
+        //Metodo para seleccionar una categoria
+        public CategoryMovements selectCatMovements(int _Id)
         {
-            string Query = "SELECT * FROM categoriamovimientos WHERE code ='" + _Code + "';";
+            string Query = "SELECT * FROM categoriamovimientos WHERE id ='" + _Id + "';";
 
             MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
 
@@ -95,10 +90,11 @@ namespace Softband.DataAccess.DaoEntities
 
             reader = Cmm.ExecuteReader();
 
+            Cmm.Connection.Close();
+
             if (reader.Read())
             {
                 newCatMovements.Id = (int)reader["id"];
-                newCatMovements.Code = (string)reader["code"];
                 newCatMovements.Name = (string)reader["name"];
                 newCatMovements.Description = (string)reader["description"];
             }
@@ -106,9 +102,10 @@ namespace Softband.DataAccess.DaoEntities
             return newCatMovements;
         }
 
-        public bool ExistCatMovement(string _Code)
+        //Metodo para verificar existencia de una categoria
+        public bool ExistCatMovement(int _Id)
         {
-            string Query = "SELECT * FROM categoriamovimientos WHERE code ='" + _Code + "';";
+            string Query = "SELECT * FROM categoriamovimientos WHERE id ='" + _Id + "';";
 
             MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
 
@@ -124,6 +121,25 @@ namespace Softband.DataAccess.DaoEntities
             {
                 return false;
             }
+        }
+
+        public void autoCompleteCatName(TextBox txtIN)
+        {
+            string Query = "SELECT name FROM categoriamovimientos;";
+
+            MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
+
+            MySqlDataReader reader;
+
+            reader = Cmm.ExecuteReader();
+
+            if (reader.Read())
+            {
+                txtIN.AutoCompleteCustomSource.Add(reader["name"].ToString());
+            }
+            reader.Close();
+
+            Cmm.Connection.Close();
         }
     }
 }

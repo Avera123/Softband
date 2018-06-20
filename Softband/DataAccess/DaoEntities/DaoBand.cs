@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 using Softband.Entities;
+using System.Data;
 
 namespace Softband.DataAccess.DaoEntities
 {
@@ -14,53 +15,25 @@ namespace Softband.DataAccess.DaoEntities
         ConectionDB ConectDB = new ConectionDB();
         Band newBand = new Band();
         List<Band> Bands = new List<Band>();
-        private string Query;
-
-        public List<Band> getAllBands()
-        {
-            List<Band> ListBands = new List<Band>();
-
-            string Query = "SELECT * FROM banda;";
-
-            MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
-
-            MySqlDataReader reader;
-
-            reader = Cmm.ExecuteReader();
-
-            while (reader.Read())
-            {
-                newBand = new Band();
-
-                newBand.Id =     (int)reader["id"];
-                newBand.Code =   (string)reader["code"];
-                newBand.Name =   (string)reader["name"];
-                newBand.Active = (bool)reader["active"];
-
-                ListBands.Add(newBand);
-            }
-
-            return ListBands;
-        }
+        private string Query;        
 
         public void insertBand(Band _Band)
         {
-            int Active = 0;
-            if (_Band.Active){Active = 1; }
-
             try
             {
-                if (ExistBand(_Band.Code))
-                {
-                    Query = "UPDATE banda SET name='"+ _Band.Name.Trim() +"', active="+ Active +" WHERE code='"+ _Band.Code.Trim() +"';";
-                }
-                else
-                {
-                    Query = "INSERT INTO banda(code, name, active) values('" + _Band.Code.Trim() + "','" + _Band.Name.Trim() + "','" + Active + "');";
-                }
+                //if (ExistBand(_Band.Id))
+                //{
+                //    Query = "UPDATE banda SET name='"+ _Band.Name.Trim() +"', active="+ Active +" WHERE code='"+ _Band.Code.Trim() +"';";
+                //}
+                //else
+                //{
+                    Query = "INSERT INTO banda(name) values('" + _Band.Name.Trim()+ "');";
+                //}
                 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 Cmm.ExecuteNonQuery();
+
+                Cmm.Connection.Close();
             }
             catch (Exception ex)
             {
@@ -68,14 +41,16 @@ namespace Softband.DataAccess.DaoEntities
             }
         }
 
-        public void deleteBand(string _Code)
+        public void deleteBand(int _Id)
         {
             try
             {
-                string Query = "DELETE FROM banda WHERE code = '"+ _Code.Trim() +"';";
+                string Query = "DELETE FROM banda WHERE id = '"+ _Id +"';";
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 Cmm.ExecuteNonQuery();
+
+                Cmm.Connection.Close();
             }
             catch (Exception ex)
             {
@@ -93,26 +68,28 @@ namespace Softband.DataAccess.DaoEntities
 
             reader = Cmm.ExecuteReader();
 
+            Cmm.Connection.Close();
+
             if (reader.Read())
             {
                 newBand.Id = (int)reader["id"];
-                newBand.Code = (string)reader["code"];
                 newBand.Name = (string)reader["name"];
-                newBand.Active = (bool)reader["active"];
             }
 
             return newBand;
         }
 
-        public bool ExistBand(string _Code)
+        public bool ExistBand(int _Id)
         {
-            string Query = "SELECT * FROM banda WHERE code ='" + _Code + "';";
+            string Query = "SELECT * FROM banda WHERE id ='" + _Id + "';";
 
             MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
 
             MySqlDataReader reader;
 
             reader = Cmm.ExecuteReader();
+
+            Cmm.Connection.Close();
 
             if (reader.HasRows)
             {
@@ -122,6 +99,67 @@ namespace Softband.DataAccess.DaoEntities
             {
                 return false;
             }
+        }
+
+        public void autoCompleteBandName(TextBox txtIN)
+        {
+            string Query = "SELECT name FROM banda;";
+
+            MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
+
+            MySqlDataReader reader;
+
+            reader = Cmm.ExecuteReader();
+
+            if (reader.Read())
+            {
+                txtIN.AutoCompleteCustomSource.Add(reader["name"].ToString());
+            }
+            reader.Close();
+
+            Cmm.Connection.Close();
+        }
+
+        public List<Band> getAllBands()
+        {
+            List<Band> ListBands = new List<Band>();
+
+            string Query = "SELECT * FROM banda;";
+
+            MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
+
+            MySqlDataReader reader;
+
+            reader = Cmm.ExecuteReader();
+
+            while (reader.Read())
+            {
+                newBand = new Band();
+
+                newBand.Id = (int)reader["id"];
+                newBand.Name = (string)reader["name"];
+
+                ListBands.Add(newBand);
+            }
+
+            Cmm.Connection.Close();
+            return ListBands;
+        }
+
+        public DataTable fillBandsDT()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                MySqlDataAdapter da = new MySqlDataAdapter("Select id, name From banda", ConectDB.getConection());
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en la carga de bandas: " + ex.Message);
+            }
+
+            return dt;
         }
     }
 }

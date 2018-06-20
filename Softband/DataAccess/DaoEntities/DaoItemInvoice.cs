@@ -27,6 +27,8 @@ namespace Softband.DataAccess.DaoEntities
 
             reader = Cmm.ExecuteReader();
 
+            Cmm.Connection.Close();
+
             if (reader.HasRows)
             {
                 while (reader.Read())
@@ -57,15 +59,48 @@ namespace Softband.DataAccess.DaoEntities
                 _ItemInvoice.Price.ToString() + "','" +
                 _ItemInvoice.Quantity + "','" +
                 _ItemInvoice.CodeInvoice + "','" +
-                _ItemInvoice.Note + "');";
-                
+                _ItemInvoice.Note + "');";    
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 Cmm.ExecuteNonQuery();
+
+                Cmm.Connection.Close();
+
+                updateStock(_ItemInvoice.Code, _ItemInvoice.Quantity);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\ninsertBand", "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void updateStock(String _code, int _stock)
+        {
+            try
+            {
+                int stockVal = 0;
+                Query = "SELECT stock FROM producto WHERE code='"+ _code +"';";
+
+                MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
+                
+                MySqlDataReader reader = Cmm.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    stockVal = (int)reader["stock"];
+                }
+
+                Query = "UPDATE producto SET stock = "+ (stockVal - _stock).ToString() + " WHERE code='" + _code + "';";
+
+                Cmm = new MySqlCommand(Query, ConectDB.getConection());
+
+                Cmm.ExecuteNonQuery();
+
+                Cmm.Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\nupdate stock", "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -144,6 +179,8 @@ namespace Softband.DataAccess.DaoEntities
             MySqlDataReader reader;
 
             reader = Cmm.ExecuteReader();
+
+            Cmm.Connection.Close();
 
             if (reader.HasRows)
             {

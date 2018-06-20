@@ -27,6 +27,8 @@ namespace Softband.DataAccess.DaoEntities
 
             reader = Cmm.ExecuteReader();
 
+            Cmm.Connection.Close();
+
             if (reader.HasRows)
             {
                 while (reader.Read())
@@ -73,6 +75,8 @@ namespace Softband.DataAccess.DaoEntities
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 Cmm.ExecuteNonQuery();
+
+                Cmm.Connection.Close();
             }
             catch (Exception ex)
             {
@@ -89,6 +93,8 @@ namespace Softband.DataAccess.DaoEntities
             MySqlDataReader reader;
 
             reader = Cmm.ExecuteReader();
+
+            Cmm.Connection.Close();
 
             if (reader.Read())
             {
@@ -113,6 +119,8 @@ namespace Softband.DataAccess.DaoEntities
 
             reader = Cmm.ExecuteReader();
 
+            Cmm.Connection.Close();
+
             if (reader.HasRows)
             {
                 return true;
@@ -131,6 +139,8 @@ namespace Softband.DataAccess.DaoEntities
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 Cmm.ExecuteNonQuery();
+
+                Cmm.Connection.Close();
             }
             catch (Exception ex)
             {

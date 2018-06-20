@@ -69,6 +69,9 @@ namespace Softband.Generics
                     AccountIn.Amount = ValueIn;
                     DaoAccount.insertAccount(AccountOut);
                     DaoAccount.insertAccount(AccountIn);
+
+                    MessageBox.Show("Movimiento realizado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 }
                 else
                 {

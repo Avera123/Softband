@@ -17,15 +17,18 @@ namespace Softband.DataAccess.Generics
         {
             try
             {
-                Query = "INSERT INTO movimientosmonetarios(idaccount, idcatmovement, idtypemovement, amount, description) VALUES('" +
+                Query = "INSERT INTO movimientosmonetarios(idaccount, idcatmovement, idtypemovement, amount, description, date) VALUES('" +
                 _MovementMoney.IdAccount.ToString() + "','" +
                 _MovementMoney.IdCatMovement.ToString() + "','" +
                 _MovementMoney.IdTypeMovement.ToString() + "','" +
                 _MovementMoney.Amount.ToString()+ "','" +
-                _MovementMoney.Description.Trim() + "');";
+                _MovementMoney.Description.ToString() + "','" +
+                _MovementMoney.Date.Trim() + "');";
             
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 Cmm.ExecuteNonQuery();
+
+                Cmm.Connection.Close();
             }
             catch (Exception ex)
             {
@@ -46,6 +49,8 @@ namespace Softband.DataAccess.Generics
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 Cmm.ExecuteNonQuery();
+
+                Cmm.Connection.Close();
             }
             catch (Exception ex)
             {

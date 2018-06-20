@@ -13,10 +13,13 @@ namespace Softband.DataAccess
         public MySqlConnection getConection()
         {
             var cadena = ConfigurationManager.ConnectionStrings["MySQL"].ConnectionString;
-
+            
             MySqlConnection conection = new MySqlConnection(cadena);
 
+            conection.ClearAllPoolsAsync();
+
             conection.Open();
+                        
             return conection;
         }
     }

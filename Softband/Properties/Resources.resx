@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="printer-64 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\printer-64 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="eraser-30" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\eraser-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -133,8 +136,17 @@
   <data name="VENTA2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\VENTA2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="minus-2-64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\minus-2-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="arrow-21-64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow-21-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="undo-5-256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\undo-5-256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="INGRESOSSALIDAS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\INGRESOSSALIDAS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="printer-64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\printer-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="minimize-window-50 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\minimize-window-50 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -142,8 +154,8 @@
   <data name="PROMOCIONES" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PROMOCIONES.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="printer-64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\printer-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="login-512" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\login-512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PAGOS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PAGOS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -159,6 +171,9 @@
   </data>
   <data name="VENTA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\VENTA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="excel-3-256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\excel-3-256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="magnifying-glass-3-30" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\magnifying-glass-3-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -187,14 +202,17 @@
   <data name="Ingreso" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Ingreso.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="login-5121" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\login-5121.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="delete-30" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\delete-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="INGRESOS1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\INGRESOS1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="INGRESOSSALIDAS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\INGRESOSSALIDAS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="minus-2-64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\minus-2-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="save-128" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\save-128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -211,7 +229,7 @@
   <data name="save-30" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\save-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="printer-64 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\printer-64 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="fullscreen-exit-128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fullscreen-exit-128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -27,15 +27,15 @@ namespace Softband.DataAccess.DaoEntities
 
             reader = Cmm.ExecuteReader();
 
+            Cmm.Connection.Close();
+
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
                     newAccount = new Account();
                     newAccount.Id = (int)reader["id"];
-                    newAccount.Code = (string)reader["code"];
                     newAccount.Name = (string)reader["name"];
-                    newAccount.Active = (bool)reader["active"];
 
                     ListAccount.Add(newAccount);
                 }
@@ -54,6 +54,8 @@ namespace Softband.DataAccess.DaoEntities
                 if (ExistInvoice(_Invoice.Code))
                 {
                     Query = "UPDATE factura SET identification='" + _Invoice.Identification.Trim() +
+                    "', nameClient='" + _Invoice.NameClient +
+                    "', banda='" + _Invoice.Band +
                     "', fecha='" + _Invoice.Fecha +
                     "', amount='" + _Invoice.Amount +
                     "', idaccountin='" + _Invoice.IdAccountIn +
@@ -62,10 +64,12 @@ namespace Softband.DataAccess.DaoEntities
                 }
                 else
                 {
-                    Query = "INSERT INTO factura(code, identification, fecha, amount, idaccountin, active) values('" +
+                    Query = "INSERT INTO factura(code, identification,nameClient, banda, fecha, amount, idaccountin, active) values('" +
                     _Invoice.Code.Trim() + "','" +
                     _Invoice.Identification.Trim() + "','" +
-                    _Invoice.Fecha.ToString() + "','" +
+                    _Invoice.NameClient.Trim() + "','" +
+                    _Invoice.Band.Trim() + "','" +
+                    _Invoice.Fecha + "','" +
                     _Invoice.Amount + "','" +
                     _Invoice.IdAccountIn + "','" +
                     Active + "');";
@@ -73,6 +77,8 @@ namespace Softband.DataAccess.DaoEntities
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 Cmm.ExecuteNonQuery();
+
+                Cmm.Connection.Close();
             }
             catch (Exception ex)
             {
@@ -90,15 +96,15 @@ namespace Softband.DataAccess.DaoEntities
 
             reader = Cmm.ExecuteReader();
 
+            Cmm.Connection.Close();
+
             if (reader.Read())
             {
                 newAccount.Id = (int)reader["id"];
-                newAccount.Code = (string)reader["code"];
                 newAccount.Name = (string)reader["name"];
                 newAccount.IdBank = (int)reader["idbank"];
                 newAccount.Description = (string)reader["description"];
                 newAccount.Type = (int)reader["type"];
-                newAccount.Active = (bool)reader["active"];
                 newAccount.Amount = Convert.ToDouble(reader["amount"]);
             }
 
@@ -115,16 +121,16 @@ namespace Softband.DataAccess.DaoEntities
 
             reader = Cmm.ExecuteReader();
 
+            Cmm.Connection.Close();
+
             if (reader.Read())
             {
                 newAccount = new Account();
                 newAccount.Id = (int)reader["id"];
-                newAccount.Code = (string)reader["code"];
                 newAccount.Name = (string)reader["name"];
                 newAccount.IdBank = (int)reader["idbank"];
                 newAccount.Description = (string)reader["description"];
                 newAccount.Type = (int)reader["type"];
-                newAccount.Active = (bool)reader["active"];
                 newAccount.Amount = Convert.ToDouble(reader["amount"]);
             }
 
@@ -139,6 +145,8 @@ namespace Softband.DataAccess.DaoEntities
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 Cmm.ExecuteNonQuery();
+
+                Cmm.Connection.Close();
             }
             catch (Exception ex)
             {
@@ -155,6 +163,8 @@ namespace Softband.DataAccess.DaoEntities
             MySqlDataReader reader;
 
             reader = Cmm.ExecuteReader();
+
+            Cmm.Connection.Close();
 
             if (reader.HasRows)
             {

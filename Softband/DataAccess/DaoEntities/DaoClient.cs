@@ -2,6 +2,7 @@
 using Softband.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,8 @@ namespace Softband.DataAccess.DaoEntities
             MySqlDataReader reader;
 
             reader = Cmm.ExecuteReader();
+
+            Cmm.Connection.Close();
 
             if (reader.HasRows)
             {
@@ -71,8 +74,47 @@ namespace Softband.DataAccess.DaoEntities
                 newClient.MobilePhone = (string)reader["mobilephone"];
                 newClient.Credit = (double)reader["credit"];
             }
+            reader.Close();
+
+            Cmm.Connection.Close();
 
             return newClient;
+        }
+
+        public void autoCompleteClientID(TextBox txtIN)
+        {
+            string Query = "SELECT identification FROM cliente;";
+
+            MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
+
+            MySqlDataReader reader;
+
+            reader = Cmm.ExecuteReader();
+
+            if (reader.Read())
+            {
+                txtIN.AutoCompleteCustomSource.Add(reader["identification"].ToString());
+            }
+            reader.Close();
+            Cmm.Connection.Close();
+        }
+
+        public void autoCompleteClientName(TextBox txtIN)
+        {
+            string Query = "SELECT name FROM cliente;";
+
+            MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
+
+            MySqlDataReader reader;
+
+            reader = Cmm.ExecuteReader();
+            
+            if (reader.Read())
+            {
+                txtIN.AutoCompleteCustomSource.Add(reader["name"].ToString());
+            }
+            reader.Close();
+            Cmm.Connection.Close();
         }
 
         public void insertClient(Client _Client)
@@ -106,6 +148,8 @@ namespace Softband.DataAccess.DaoEntities
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 Cmm.ExecuteNonQuery();
+
+                Cmm.Connection.Close();
             }
             catch (Exception ex)
             {
@@ -125,10 +169,14 @@ namespace Softband.DataAccess.DaoEntities
 
             if (reader.HasRows)
             {
+                reader.Close();
+                Cmm.Connection.Close();
                 return true;
             }
             else
             {
+                reader.Close();
+                Cmm.Connection.Close();
                 return false;
             }
         }
@@ -141,11 +189,30 @@ namespace Softband.DataAccess.DaoEntities
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 Cmm.ExecuteNonQuery();
+
+                Cmm.Connection.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\ndeleteClient", "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        public DataTable fillClientsDT()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                MySqlDataAdapter da = new MySqlDataAdapter("Select t1.id, t1.identification, t1.name, t2.id AS idBanda, t2.name AS banda, t1.email, t1.address, t1.phone, t1.mobilephone, t1.credit From cliente t1, banda t2 WHERE t1.idband = t2.id", ConectDB.getConection());
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en la carga de bandas: " + ex.Message);
+            }
+
+            return dt;
+        }
+
     }
 }

@@ -2,6 +2,7 @@
 using Softband.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace Softband.DataAccess.DaoEntities
         public List<Product> getAllProducts()
         {
             List<Product> ListProducts = new List<Product>();
-            string Query = "SELECT id, code, name, idcategory, description, costsale, costbuy, stock FROM producto;";
+            string Query = "SELECT * FROM producto;";
 
             MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
 
@@ -76,6 +77,8 @@ namespace Softband.DataAccess.DaoEntities
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 Cmm.ExecuteNonQuery();
+
+                Cmm.Connection.Close();
             }
             catch (Exception ex)
             {
@@ -127,20 +130,40 @@ namespace Softband.DataAccess.DaoEntities
                 return false;
             }
         }
-        /*
-        public void deleteUser(string _ID)
+
+        public void autoCompleteProductName(TextBox txtIN)
         {
+            string Query = "SELECT name FROM banda;";
+
+            MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
+
+            MySqlDataReader reader;
+
+            reader = Cmm.ExecuteReader();
+
+            if (reader.Read())
+            {
+                txtIN.AutoCompleteCustomSource.Add(reader["name"].ToString());
+            }
+            reader.Close();
+
+            Cmm.Connection.Close();
+        }
+
+        public DataTable fillProductsDT()
+        {
+            DataTable dt = new DataTable();
             try
             {
-                string Query = "DELETE FROM usuario WHERE identification = '" + _ID.Trim() + "';";
-
-                MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
-                Cmm.ExecuteNonQuery();
+                MySqlDataAdapter da = new MySqlDataAdapter("SELECT t1.id, t1.code, t1.name, t1.idcategory, t2.name AS namecategory, t1.description, t1.costsale, t1.costbuy, t1.stock FROM producto t1, categoriaproducto t2 WHERE t1.idcategory = t2.id", ConectDB.getConection());
+                da.Fill(dt);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "\ndeleteBand", "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error en la carga de bandas: " + ex.Message);
             }
-        }*/
+
+            return dt;
+        }
     }
 }

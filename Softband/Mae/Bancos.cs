@@ -1,105 +1,213 @@
 ﻿using Softband.DataAccess.DaoEntities;
+using Softband.DataAccess.Generics;
 using Softband.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Softband.Functions.ExportGridExcel;
 
 namespace Softband.Mae
 {
     public partial class Bancos : Form
     {
         Bank newBank = new Bank();
-        DaoBank DaoBank = new DaoBank();
+        DaoBank daoBank = new DaoBank();
         List<Bank> Banks = new List<Bank>();
+        GenericQuerys GenericQuerys = new GenericQuerys();
 
         public Bancos()
         {
             InitializeComponent();
-            GetAllBanks();
+            CargarBancosGrid();
         }
-
-        public void GetAllBanks()
+        
+        //Cargar Datagrid con DataTable - PROVEEDORES
+        public void CargarBancosGrid()
         {
-            Banks = DaoBank.getAllBanks();
-
-            lvBanks.Clear();
-
-            ListViewItem listBanks = new ListViewItem();
-
-            foreach (Bank _bank in Banks)
-            {
-                string active = "";
-                if (_bank.Active) { active = "ACTIVO"; } else { active = "INACTIVO"; };
-                ListViewItem lista = new ListViewItem(_bank.Id.ToString() + " | " + _bank.Code.ToString() + " | " + _bank.Name.ToString() +" | ESTADO* "+active);
-                lvBanks.Items.Add(lista);
-            }
-
+            DataTable dt = daoBank.fillBanksDT();
+            dgvBancos.DataSource = dt;
+            dgvBancos.Columns[0].HeaderText = "CÓDIGO";
+            dgvBancos.Columns[1].HeaderText = "NOMBRE";
         }
 
-
-        private void btnMinimize_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
+        //Boton guardar/insertar Banco
+        private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
-                if (txtCodeBanc.Text.Trim() != "")
+                if (txtNameBanc.Text.Trim() != "")
                 {
-                    if (DaoBank.ExistBank(txtCodeBanc.Text.Trim()))
-                    {
-                        newBank = DaoBank.selectBank(txtCodeBanc.Text.Trim());
-
-                        txtCodeBanc.Text = newBank.Code.Trim();
-                        txtNameBanc.Text = newBank.Name.Trim();
-                        ckbActive.Checked = newBank.Active;
-                    }
-                    else
-                    {
-                        btnClear_Click(null, null);
-                        MessageBox.Show("El banco no existente",
-                            "Validación",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Exclamation);
-                    }
+                    newBank.Name = txtNameBanc.Text.Trim();
+                    daoBank.insertBank(newBank);
+                    CargarBancosGrid();
+                    MessageBox.Show("Banco guardadosatisfactoriamente:\n" + newBank.Name,
+                        "Información del Sistema",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                 }
                 else
                 {
-                    btnClear_Click(null, null);
-                    MessageBox.Show("El Campo Código no debe estar vacío",
-                        "Validación",
+                    MessageBox.Show("El campo Nombre es obligatorio",
+                        "Validación del Sistema",
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Exclamation);
+                        MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar datos del Banco:\n" + ex.Message,
+                MessageBox.Show("Error:\n" + ex.Message,
+                    "Error al insertar el nuevo Banco",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        //Boton Limpiar Textbox
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            this.txtNameBanc.Text = "";
+        }
+
+        private void Bancos_Load(object sender, EventArgs e)
+        {
+            daoBank.autoCompleteBankName(txtNameBanc);
+        }
+
+        //Boton Borrar Banco
+        private void btnDelete_Click(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                DialogResult result = MessageBox.Show("¿Realmente desea Eliminar este Banco?",
+                    "Confirmación",
+                    MessageBoxButtons.YesNoCancel);
+
+                DataGridViewRow dgvR = new DataGridViewRow();
+                dgvR = dgvBancos.Rows[this.dgvBancos.CurrentCell.RowIndex];
+
+                if (result == DialogResult.Yes)
+                {
+                    if (newBank.Id >= 1)
+                    {
+                        if (daoBank.ExistBank(newBank.Id))
+                        {
+                            daoBank.deleteBank(newBank.Id);
+                            newBank.Id = 0;
+                            btnClear_Click(null, null);
+                            CargarBancosGrid();
+                            MessageBox.Show("Banco Eliminado Correctamente.",
+                                "Información del Sistema",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Banco No existente",
+                                "Error del Sistema",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo borrar el banco Indice Fuera del Rango",
+                            "Error del Sistema",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                    }
+                }
+                else if (result == DialogResult.No)
+                {
+                    txtNameBanc.Text = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al Eliminar Banco:\n" + ex.Message,
                     "Error del Sistema",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
+        //Doble clic para carga de datos al textbox
+        private void dgvBancos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.txtCodeBanc.Text = "";
-            this.txtNameBanc.Text = "";
-            this.ckbActive.Checked = false;
+            DataGridViewRow dgvR = new DataGridViewRow();
+            dgvR = dgvBancos.Rows[this.dgvBancos.CurrentCell.RowIndex];
+            
+            newBank.Id = Convert.ToInt32(dgvR.Cells[0].Value);
+            newBank.Name = dgvR.Cells[1].Value.ToString();
+
+            txtNameBanc.Text = dgvR.Cells[1].Value.ToString();
         }
+
+        //Boton Exportar Grid A Excel
+        #region Exportar a excel
+        private void btnExport_Click_1(object sender, EventArgs e)
+        {
+            //ExportToExcel();
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Documentos de Excel (*.xls)|*.xls";
+            sfd.FileName = "Softband - Listado de Bancos - " + DateTime.Now.ToShortDateString().Replace("/", "_") + ".xls";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                ToExcel(dgvBancos, sfd.FileName); // Here dataGridview1 is your grid view name
+            }
+        }
+
+        private void ToExcel(DataGridView dGV, string filename)
+        {
+            string stOutput = "";
+            // Export titles:
+            string sHeaders = "";
+
+            for (int j = 0; j < dGV.Columns.Count; j++)
+                sHeaders = sHeaders.ToString() + Convert.ToString(dGV.Columns[j].HeaderText) + "\t";
+            stOutput += sHeaders + "\r\n";
+            // Export data.
+            for (int i = 0; i < dGV.RowCount; i++)
+            {
+                string stLine = "";
+                for (int j = 0; j < dGV.Rows[i].Cells.Count; j++)
+                    stLine = stLine.ToString() + Convert.ToString(dGV.Rows[i].Cells[j].Value) + "\t";
+                stOutput += stLine + "\r\n";
+            }
+            Encoding utf16 = Encoding.GetEncoding(1254);
+            byte[] output = utf16.GetBytes(stOutput);
+            FileStream fs = new FileStream(filename, FileMode.Create);
+            BinaryWriter bw = new BinaryWriter(fs);
+            bw.Write(output, 0, output.Length); //write the encoded file
+            bw.Flush();
+            bw.Close();
+            fs.Close();
+        }
+
+        private void releaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show("Exception Occured while releasing object " + ex.ToString());
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+        #endregion
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
@@ -108,82 +216,59 @@ namespace Softband.Mae
                 DialogResult result = MessageBox.Show("¿Realmente desea Eliminar este Banco?",
                     "Confirmación",
                     MessageBoxButtons.YesNoCancel);
+
+                DataGridViewRow dgvR = new DataGridViewRow();
+                dgvR = dgvBancos.Rows[this.dgvBancos.CurrentCell.RowIndex];
+
                 if (result == DialogResult.Yes)
                 {
-                    if (txtCodeBanc.Text.Trim() != "")
+                    if (newBank.Id >= 1)
                     {
-                        DaoBank.deleteBank(txtCodeBanc.Text.Trim());
-                        btnClear_Click(null, null);
-                        MessageBox.Show("Banco Eliminado Correctamente.",
-                            "Información",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                        if (daoBank.ExistBank(newBank.Id))
+                        {
+                            daoBank.deleteBank(newBank.Id);
+                            newBank.Id = 0;
+                            btnClear_Click(null, null);
+                            CargarBancosGrid();
+                            MessageBox.Show("Banco Eliminado Correctamente.",
+                                "Información del Sistema",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Banco No existente",
+                                "Error del Sistema",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Campos obligatorios:\n*Código",
-                            "Validación",
+                        MessageBox.Show("No se pudo borrar el banco Indice Fuera del Rango",
+                            "Error del Sistema",
                             MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                            MessageBoxIcon.Error);
                     }
                 }
                 else if (result == DialogResult.No)
                 {
                     txtNameBanc.Text = "";
-                    txtCodeBanc.Text = "";
-                    ckbActive.Checked = false;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al Eliminar Banda:\n" + ex.Message,
+                MessageBox.Show("Error al Eliminar Banco:\n" + ex.Message,
                     "Error del Sistema",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (txtCodeBanc.Text.Trim() != "" && txtNameBanc.Text.Trim() != "")
-                {
-                    newBank.Code = txtCodeBanc.Text.Trim();
-                    newBank.Name = txtNameBanc.Text.Trim();
-                    newBank.Active = ckbActive.Checked;
-
-                    DaoBank.insertBank(newBank);
-                    MessageBox.Show("Banco guardado:\n" + newBank.Name,
-                        "Información",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Campos obligatorios:\n*Código\n*Nombre",
-                        "Validación",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error:\n" + ex.Message,
-                    "Error al insertar",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-
-        private void Bancos_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
+        //private void txtNameBanc_TextChanged(object sender, EventArgs e)
+        //{
+        //    dt.DefaultView.RowFilter = ("Banco like '%" + txtNameBanc.Text.Trim() + "%'");
+        //    dgvBancos.DataSource = dt.DefaultView;
+        //}
     }
 }

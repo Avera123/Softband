@@ -2,6 +2,7 @@
 using Softband.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,52 +17,40 @@ namespace Softband.DataAccess.DaoEntities
         List<CategoriaProduct> Cats = new List<CategoriaProduct>();
         private string Query;
 
-
-        public List<CategoriaProduct> getAllCats()
+        //Metodo de carga de datos para grid
+        public DataTable fillCategoriesDT()
         {
-            List<CategoriaProduct> ListCats = new List<CategoriaProduct>();
-
-            string Query = "SELECT * FROM categoriaproducto;";
-
-            MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
-
-            MySqlDataReader reader;
-
-            reader = Cmm.ExecuteReader();
-
-            while (reader.Read())
+            DataTable dt = new DataTable();
+            try
             {
-                newCatProduct = new CategoriaProduct();
-                
-                newCatProduct.Id = (int)reader["id"];
-                newCatProduct.Code = (string)reader["code"];
-                newCatProduct.Name = (string)reader["name"];
-                newCatProduct.Active = (bool)reader["active"];
-
-                ListCats.Add(newCatProduct);
+                MySqlDataAdapter da = new MySqlDataAdapter("Select id, name From categoriaproducto", ConectDB.getConection());
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en la carga de bancos: " + ex.Message);
             }
 
-            return ListCats;
+            return dt;
         }
 
         public void insertCatproduct(CategoriaProduct _CatProduct)
         {
-            int Active = 0;
-            if (_CatProduct.Active) { Active = 1; }
-
             try
             {
-                if (ExistCatProduct(_CatProduct.Code))
+                if (ExistCatProduct(_CatProduct.Id))
                 {
-                    Query = "UPDATE categoriaproducto SET name='" + _CatProduct.Name.Trim() + "', active=" + Active + " WHERE code='" + _CatProduct.Code.Trim() + "';";
+                    Query = "UPDATE categoriaproducto SET name='" + _CatProduct.Name.Trim() + "' WHERE id='" + _CatProduct.Id + "';";
                 }
                 else
                 {
-                    Query = "INSERT INTO categoriaproducto(code, name, active) values('" + _CatProduct.Code.Trim() + "','" + _CatProduct.Name.Trim() + "','" + Active + "');";
+                    Query = "INSERT INTO categoriaproducto(name) values('" + _CatProduct.Name.Trim() + "');";
                 }
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 Cmm.ExecuteNonQuery();
+
+                Cmm.Connection.Close();
             }
             catch (Exception ex)
             {
@@ -69,11 +58,11 @@ namespace Softband.DataAccess.DaoEntities
             }
         }
 
-        public bool deleteCatProduct(string _Code)
+        public bool deleteCatProduct(int _Id)
         {
             try
             {
-                string Query = "DELETE FROM categoriaproducto WHERE code='" + _Code.Trim() + "';";
+                string Query = "DELETE FROM categoriaproducto WHERE id='" + _Id + "';";
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 return Convert.ToBoolean(Cmm.ExecuteNonQuery());
@@ -88,9 +77,9 @@ namespace Softband.DataAccess.DaoEntities
             }
         }
 
-        public CategoriaProduct selectCatProduct(string _Code)
+        public CategoriaProduct selectCatProduct(int _Id)
         {
-            string Query = "SELECT * FROM categoriaproducto WHERE code ='" + _Code + "';";
+            string Query = "SELECT * FROM categoriaproducto WHERE id ='" + _Id + "';";
 
             MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
 
@@ -98,20 +87,20 @@ namespace Softband.DataAccess.DaoEntities
 
             reader = Cmm.ExecuteReader();
 
+            Cmm.Connection.Close();
+
             if (reader.Read())
             {
                 newCatProduct.Id = (int)reader["id"];
-                newCatProduct.Code = (string)reader["code"];
                 newCatProduct.Name = (string)reader["name"];
-                newCatProduct.Active = (bool)reader["active"];
             }
 
             return newCatProduct;
         }
 
-        public bool ExistCatProduct(string _Code)
+        public bool ExistCatProduct(int _Id)
         {
-            string Query = "SELECT * FROM categoriaproducto WHERE code ='" + _Code + "';";
+            string Query = "SELECT * FROM categoriaproducto WHERE id ='" + _Id + "';";
 
             MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
 
@@ -127,6 +116,25 @@ namespace Softband.DataAccess.DaoEntities
             {
                 return false;
             }
+        }
+
+        public void autoCompleteCatName(TextBox txtIN)
+        {
+            string Query = "SELECT name FROM categoriaproducto;";
+
+            MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
+
+            MySqlDataReader reader;
+
+            reader = Cmm.ExecuteReader();
+
+            if (reader.Read())
+            {
+                txtIN.AutoCompleteCustomSource.Add(reader["name"].ToString());
+            }
+            reader.Close();
+
+            Cmm.Connection.Close();
         }
     }
 }

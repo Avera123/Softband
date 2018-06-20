@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,14 +29,20 @@ namespace Softband.Maestros
         {
             Users = DaoUser.getAllUsers();
 
-            lvUsers.Clear();
+            //lvUsers.Clear();
+            dgvUsers.Rows.Clear();
 
-            foreach (User _user in Users)
+            /*foreach (User _user in Users)
             {
                 string active = "";
                 if (_user.Active) { active = "ACTIVO"; } else { active = "INACTIVO"; };
                 ListViewItem lista = new ListViewItem(_user.Id.ToString() + " | " + _user.ID.ToString() + " | " + _user.Name.ToString() + " | ESTADO* " + active);
                 lvUsers.Items.Add(lista);
+            }*/
+
+            foreach (User _user in Users)
+            {
+                dgvUsers.Rows.Add(_user.Id,_user.ID,_user.Name,_user.NickName,_user.Active);
             }
         }
 
@@ -197,5 +204,86 @@ namespace Softband.Maestros
                     MessageBoxIcon.Error);
             }
         }
+
+        private void dgvUsers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow dgvR = new DataGridViewRow();
+            dgvR = dgvUsers.Rows[this.dgvUsers.CurrentCell.RowIndex];
+
+
+            User _userIn = new User();
+            _userIn.Id = Convert.ToInt32(dgvR.Cells[0].Value);
+            _userIn.ID = dgvR.Cells[1].Value.ToString();
+            _userIn.Name = dgvR.Cells[2].Value.ToString();
+            _userIn.NickName = dgvR.Cells[3].Value.ToString();
+            _userIn.Active = Convert.ToBoolean(dgvR.Cells[4].Value);
+
+            if (dgvR.Cells[1].Value.ToString() != "")
+            {
+                txtIDUser.Text = dgvR.Cells[1].Value.ToString().Trim();
+                this.btnSearch_Click(null, null);
+            }
+            
+        }
+
+        //Boton Exportar Grid A Excel
+        #region Exportar a excel
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            //ExportToExcel();
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Documentos de Excel (*.xls)|*.xls";
+            sfd.FileName = "Softband - Listado de Usuarios - " + DateTime.Now.ToShortDateString().Replace("/", "_") + ".xls";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                ToExcel(dgvUsers, sfd.FileName); // Here dataGridview1 is your grid view name
+            }
+        }        
+
+        private void ToExcel(DataGridView dGV, string filename)
+        {
+            string stOutput = "";
+            // Export titles:
+            string sHeaders = "";
+
+            for (int j = 0; j < dGV.Columns.Count; j++)
+                sHeaders = sHeaders.ToString() + Convert.ToString(dGV.Columns[j].HeaderText) + "\t";
+            stOutput += sHeaders + "\r\n";
+            // Export data.
+            for (int i = 0; i < dGV.RowCount; i++)
+            {
+                string stLine = "";
+                for (int j = 0; j < dGV.Rows[i].Cells.Count; j++)
+                    stLine = stLine.ToString() + Convert.ToString(dGV.Rows[i].Cells[j].Value) + "\t";
+                stOutput += stLine + "\r\n";
+            }
+            Encoding utf16 = Encoding.GetEncoding(1254);
+            byte[] output = utf16.GetBytes(stOutput);
+            FileStream fs = new FileStream(filename, FileMode.Create);
+            BinaryWriter bw = new BinaryWriter(fs);
+            bw.Write(output, 0, output.Length); //write the encoded file
+            bw.Flush();
+            bw.Close();
+            fs.Close();
+        }
+
+        private void releaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show("Exception Occured while releasing object " + ex.ToString());
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+        #endregion
     }
 }

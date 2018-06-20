@@ -10,175 +10,206 @@ using System.Windows.Forms;
 using Softband.DataAccess;
 using Softband.Entities;
 using Softband.DataAccess.DaoEntities;
+using System.IO;
 
 namespace Softband.Maestros
 {
     public partial class Bandas : Form
     {
         Band newBand = new Band();
-        DaoBand DaoBand = new DaoBand();
+        DaoBand daoBand = new DaoBand();
         List<Band> Bands = new List<Band>();
 
         public Bandas()
         {
             InitializeComponent();
-            GetAllBands();
+            CargarBandasGrid();
         }
 
-        public void GetAllBands()
+        //Metodo de Carga de datos para DataGrid
+        public void CargarBandasGrid()
         {
-            Bands = DaoBand.getAllBands();
-            lvBands.Clear();
-            ListViewItem listBands = new ListViewItem();
-
-            foreach (Band _band in Bands)
-            {
-                string active = "";
-                if (_band.Active) { active = "ACTIVO"; } else { active = "INACTIVO"; };
-                ListViewItem lista = new ListViewItem(_band.Id.ToString() + " | " + _band.Code.ToString() + " | " + _band.Name.ToString() + " | ESTADO* " + active);
-                lvBands.Items.Add(lista);
-            }
-
+            DataTable dt = daoBand.fillBandsDT();
+            dgvBandas.DataSource = dt;
+            dgvBandas.Columns[0].HeaderText = "CÓDIGO";
+            dgvBandas.Columns[1].HeaderText = "NOMBRE";
         }
 
+        //Boton Insertar Banda
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
-                if (txtNameBand.Text.Trim() != "" && txtCodeBand.Text.Trim() != "")
+                if (txtNameBand.Text.Trim() != "")
                 {
                     newBand.Name = txtNameBand.Text.Trim();
-                    newBand.Code = txtCodeBand.Text.Trim();
-                    newBand.Active = ckbActive.Checked;
+                    daoBand.insertBand(newBand);
+                    CargarBandasGrid();
 
-                    DaoBand.insertBand(newBand);
                     MessageBox.Show("Banda guardada:\n" + newBand.Name, 
-                        "Información", 
+                        "Información del sitema", 
                         MessageBoxButtons.OK, 
-                        MessageBoxIcon.Information);
+                        MessageBoxIcon.Information);                    
                 }
                 else
                 {
-                    MessageBox.Show("Campos obligatorios:\n*Código\n*Nombre", 
-                        "Validación", 
+                    MessageBox.Show("El Campo Nombre es obligatorio", 
+                        "Validación del sistema", 
                         MessageBoxButtons.OK, 
-                        MessageBoxIcon.Information);
+                        MessageBoxIcon.Warning);
                 }                
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error:\n"+ex.Message, 
-                    "Error al insertar", 
+                    "Error al insertar banda", 
                     MessageBoxButtons.OK, 
                     MessageBoxIcon.Error);
             }
             
         }
-        
+
+        private void Bandas_Load(object sender, EventArgs e)
+        {
+            daoBand.autoCompleteBandName(txtNameBand);
+        }
+
+        //Boton Limpiar
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            this.txtNameBand.Text = "";
+        }
+
+        //Boton borrar banda
         private void btnDeleteBand_Click(object sender, EventArgs e)
         {
             try
             {
-                DialogResult result = MessageBox.Show("¿Realmente desea Eliminar esta banda?", 
-                    "Confirmación", 
+                DialogResult result = MessageBox.Show("¿Realmente desea Eliminar esta Banda?",
+                    "Confirmación",
                     MessageBoxButtons.YesNoCancel);
+
+                DataGridViewRow dgvR = new DataGridViewRow();
+                dgvR = dgvBandas.Rows[this.dgvBandas.CurrentCell.RowIndex];
+
                 if (result == DialogResult.Yes)
                 {
-                    if (txtCodeBand.Text.Trim() != "")
+                    if (newBand.Id >= 1)
                     {
-                        DaoBand.deleteBand(txtCodeBand.Text.Trim());
-                        btnClear_Click(null, null);
-                        MessageBox.Show("Banda Eliminada Correctamente.",
-                            "Información",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                        if (!daoBand.ExistBand(newBand.Id))
+                        {
+                            daoBand.deleteBand(newBand.Id);
+                            newBand.Id = 0;
+                            btnClear_Click(null, null);
+                            CargarBandasGrid();
+                            MessageBox.Show("Banda Eliminada Correctamente.",
+                                "Información del Sistema",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Banda No existente",
+                                "Error del Sistema",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Campos obligatorios:\n*Código", 
-                            "Validación", 
+                        MessageBox.Show("No se pudo borrar la banda Indice Fuera del Rango",
+                            "Error del Sistema",
                             MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                            MessageBoxIcon.Error);
                     }
                 }
                 else if (result == DialogResult.No)
                 {
                     txtNameBand.Text = "";
-                    txtCodeBand.Text = "";
-                    ckbActive.Checked = false;
-                }                
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al Eliminar Banda:\n" + ex.Message,
+                MessageBox.Show("Error al Eliminar Banco:\n" + ex.Message,
                     "Error del Sistema",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
-            
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
+        //Doble click de Banda para carga de datos
+        private void dgvBandas_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            this.txtCodeBand.Text = "";
-            this.txtNameBand.Text = "";
-            this.ckbActive.Checked = false;
+            DataGridViewRow dgvR = new DataGridViewRow();
+            dgvR = dgvBandas.Rows[this.dgvBandas.CurrentCell.RowIndex];
+
+            newBand.Id = Convert.ToInt32(dgvR.Cells[0].Value);
+            newBand.Name = dgvR.Cells[1].Value.ToString();
+
+            if (dgvR.Cells[1].Value.ToString() != "")
+            {
+                txtNameBand.Text = dgvR.Cells[1].Value.ToString().Trim();
+            }
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        //Boton Exportar Grid A Excel
+        #region Exportar a excel
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            //ExportToExcel();
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Documentos de Excel (*.xls)|*.xls";
+            sfd.FileName = "Softband - Listado de Bandas - " + DateTime.Now.ToShortDateString().Replace("/", "_") + ".xls";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                ToExcel(dgvBandas, sfd.FileName); // Here dataGridview1 is your grid view name
+            }
+        }
+
+        private void ToExcel(DataGridView dGV, string filename)
+        {
+            string stOutput = "";
+            // Export titles:
+            string sHeaders = "";
+
+            for (int j = 0; j < dGV.Columns.Count; j++)
+                sHeaders = sHeaders.ToString() + Convert.ToString(dGV.Columns[j].HeaderText) + "\t";
+            stOutput += sHeaders + "\r\n";
+            // Export data.
+            for (int i = 0; i < dGV.RowCount; i++)
+            {
+                string stLine = "";
+                for (int j = 0; j < dGV.Rows[i].Cells.Count; j++)
+                    stLine = stLine.ToString() + Convert.ToString(dGV.Rows[i].Cells[j].Value) + "\t";
+                stOutput += stLine + "\r\n";
+            }
+            Encoding utf16 = Encoding.GetEncoding(1254);
+            byte[] output = utf16.GetBytes(stOutput);
+            FileStream fs = new FileStream(filename, FileMode.Create);
+            BinaryWriter bw = new BinaryWriter(fs);
+            bw.Write(output, 0, output.Length); //write the encoded file
+            bw.Flush();
+            bw.Close();
+            fs.Close();
+        }
+
+        private void releaseObject(object obj)
         {
             try
             {
-                if (txtCodeBand.Text.Trim() != "")
-                {
-                    if (DaoBand.ExistBand(txtCodeBand.Text.Trim()))
-                    {
-                        newBand = DaoBand.selectBand(txtCodeBand.Text.Trim());
-
-                        txtCodeBand.Text = newBand.Code.Trim();
-                        txtNameBand.Text = newBand.Name.Trim();
-                        ckbActive.Checked = newBand.Active;
-                    }
-                    else
-                    {
-                        btnClear_Click(null, null);
-                        MessageBox.Show("Banda no existente", 
-                            "Validación",
-                            MessageBoxButtons.OK, 
-                            MessageBoxIcon.Exclamation);
-                    }
-                }
-                else
-                {
-                    btnClear_Click(null, null);
-                    MessageBox.Show("El Campo Código no debe estar vacío", 
-                        "Validación", 
-                        MessageBoxButtons.OK, 
-                        MessageBoxIcon.Exclamation);
-                }
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar datos de la Banda:\n" + ex.Message, 
-                    "Error del Sistema", 
-                    MessageBoxButtons.OK, 
-                    MessageBoxIcon.Error);
+                obj = null;
+                MessageBox.Show("Exception Occured while releasing object " + ex.ToString());
+            }
+            finally
+            {
+                GC.Collect();
             }
         }
-        
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
-        }
-
-        private void btnMinimize_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void Bandas_Load(object sender, EventArgs e)
-        {
-
-        }
+        #endregion
     }
 }

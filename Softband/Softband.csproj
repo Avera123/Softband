@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\AVERA\Desktop\Soft\</PublishUrl>
+    <PublishUrl>C:\Users\AVERA\Desktop\Soft4\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -38,6 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -58,7 +59,13 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Softband.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Logo-La-Sala.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bunifu_UI_v1.4">
@@ -67,10 +74,22 @@
     <Reference Include="MetroFramework">
       <HintPath>C:\Users\georg\Documents\Visual Studio 2015\Projects\Holmes\Holmes\bin\Debug\MetroFramework.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -92,14 +111,17 @@
     <Compile Include="DataAccess\DaoEntities\DaoAccount.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoBand.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoBank.cs" />
+    <Compile Include="DataAccess\DaoEntities\DaoBill.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoCategoryMovements.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoCatProduct.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoClient.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoFact.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoItemInvoice.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoPromo.cs" />
+    <Compile Include="DataAccess\DaoEntities\DaoProvider.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoUser.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoProduct.cs" />
+    <Compile Include="DataAccess\Generics\DaoRepVentas.cs" />
     <Compile Include="DataAccess\Generics\GenericQuerys.cs" />
     <Compile Include="DataAccess\Generics\MovesMoney.cs" />
     <Compile Include="Entities\Account.cs" />
@@ -113,7 +135,27 @@
     <Compile Include="Entities\MovementMoney.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Promotion.cs" />
+    <Compile Include="Entities\Provider.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Functions\ExportGridExcel.cs" />
+    <Compile Include="Generics\Compras.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generics\Compras.Designer.cs">
+      <DependentUpon>Compras.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generics\CuadreCajas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generics\CuadreCajas.Designer.cs">
+      <DependentUpon>CuadreCajas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generics\CuadreInventarioStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generics\CuadreInventarioStock.Designer.cs">
+      <DependentUpon>CuadreInventarioStock.cs</DependentUpon>
+    </Compile>
     <Compile Include="Generics\IngresosYEgresos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -186,6 +228,12 @@
     <Compile Include="Mae\Promo.Designer.cs">
       <DependentUpon>Promo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mae\Proveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mae\Proveedores.Designer.cs">
+      <DependentUpon>Proveedores.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mae\Usuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,8 +242,36 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\VentasAnual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\VentasAnual.Designer.cs">
+      <DependentUpon>VentasAnual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\VentasDia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\VentasDia.Designer.cs">
+      <DependentUpon>VentasDia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\VentasMes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\VentasMes.Designer.cs">
+      <DependentUpon>VentasMes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SqlServerTypes\Loader.cs" />
     <EmbeddedResource Include="Control.resx">
       <DependentUpon>Control.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generics\Compras.resx">
+      <DependentUpon>Compras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generics\CuadreCajas.resx">
+      <DependentUpon>CuadreCajas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generics\CuadreInventarioStock.resx">
+      <DependentUpon>CuadreInventarioStock.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generics\IngresosYEgresos.resx">
       <DependentUpon>IngresosYEgresos.cs</DependentUpon>
@@ -233,6 +309,9 @@
     <EmbeddedResource Include="Mae\Promo.resx">
       <DependentUpon>Promo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mae\Proveedores.resx">
+      <DependentUpon>Proveedores.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Mae\Usuarios.resx">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </EmbeddedResource>
@@ -246,6 +325,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Reports\VentasAnual.resx">
+      <DependentUpon>VentasAnual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\VentasDia.resx">
+      <DependentUpon>VentasDia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\VentasMes.resx">
+      <DependentUpon>VentasMes.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -359,7 +448,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 y x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -367,6 +456,35 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-21-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\login-512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reports\Reports\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\login-5121.png" />
+    <None Include="Resources\undo-5-256.png" />
+    <None Include="Resources\excel-3-256.png" />
+    <Content Include="Logo-La-Sala.ico" />
+    <None Include="Resources\fullscreen-exit-128.png" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

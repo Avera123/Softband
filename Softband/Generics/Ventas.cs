@@ -1,6 +1,7 @@
 ﻿using Softband.DataAccess.DaoEntities;
 using Softband.DataAccess.Generics;
 using Softband.Entities;
+using Softband.Maestros;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,7 @@ namespace Softband.Generics
         DaoProduct DaoProduct = new DaoProduct();
         DaoFact DaoFact = new DaoFact();
         DaoAccount DaoAccount = new DaoAccount();
+        DaoBand DaoBand = new DaoBand();
         DaoItemInvoice DaoItemInvoice = new DaoItemInvoice();
         Client newClient = new Client();
         Product newProduct = new Product();
@@ -26,6 +28,7 @@ namespace Softband.Generics
         InvoiceItemcs newItemInvoice = new InvoiceItemcs();
         List<Account> ListAccount = new List<Account>();
         List<Product> ListProducts = new List<Product>();
+        List<Band> ListBands = new List<Band>();
         GenericQuerys GenericQuerys = new GenericQuerys();
         DataTable ds;
         Account AccountIn = new Account();
@@ -33,12 +36,17 @@ namespace Softband.Generics
         public Ventas()
         {
             InitializeComponent();
+            //Carga de ComboBoxs
             setCbAccounts();
+            setCbBands();
+            //Recuperacion de todos los poductos
             GetAllProducts();
+            // Inicializacion de Variables
             rdName.Checked = true;
             lblConsecutivo.Text = "FAC" + GenericQuerys.Consecutivo().ToString();
+            lblBanda.Text = "";
         }
-                
+
         private void setCbAccounts()
         {
             cbAccountIn.DataSource = null;
@@ -48,11 +56,22 @@ namespace Softband.Generics
             cbAccountIn.ValueMember = "Id";
             cbAccountIn.DisplayMember = "Name";
         }
-        
+
+        private void setCbBands()
+        {
+            cbBandas.DataSource = null;
+            ListBands = DaoBand.getAllBands();
+
+            cbBandas.DataSource = ListBands;
+            cbBandas.ValueMember = "Id";
+            cbBandas.DisplayMember = "Name";
+        }
+
         public void GetAllProducts()
         {
             ds = GenericQuerys.fillProductsDS();
             dgvProducts.DataSource = ds;
+            dgvProducts.Columns[4].DefaultCellStyle.Format = "c";
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -106,21 +125,57 @@ namespace Softband.Generics
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            lblIDClient.Text = "---";
-            lblNameClient.Text = "---";
-            lblMail.Text = "---";
-            lblAddress.Text = "---";
-            lblPhone.Text = "---";
-            lblCel.Text = "---";
-            lblCredit.Text = "---";
-            lblConsecutivo.Text = "---";
-            dgvListado.Rows.Clear();
-            txtAmount.Text = "0.00";
+            try
+            {
+                if (dgvListado.Rows.Count >= 1)
+                {
+                    DialogResult result = MessageBox.Show("¿Realmente desea Limpiar la factura en curso?",
+                    "Confirmación",
+                    MessageBoxButtons.YesNoCancel);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        lblIDClient.Text = "---";
+                        lblNameClient.Text = "---";
+                        lblMail.Text = "---";
+                        lblAddress.Text = "---";
+                        lblPhone.Text = "---";
+                        lblCel.Text = "---";
+                        lblCredit.Text = "---";
+                        lblConsecutivo.Text = "---";
+                        dgvListado.Rows.Clear();
+                        txtAmount.Text = "0.00";
+                        lblBanda.Text = "---";
+                    }
+                }
+                else
+                {
+                    lblIDClient.Text = "---";
+                    lblNameClient.Text = "---";
+                    lblMail.Text = "---";
+                    lblAddress.Text = "---";
+                    lblPhone.Text = "---";
+                    lblCel.Text = "---";
+                    lblCredit.Text = "---";
+                    lblConsecutivo.Text = "---";
+                    dgvListado.Rows.Clear();
+                    txtAmount.Text = "0.00";
+                    lblBanda.Text = "---";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al Eliminar Banco:\n" + ex.Message,
+                    "Error del Sistema",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void Ventas_Load(object sender, EventArgs e)
         {
-
+            DaoClient.autoCompleteClientID(txtIdentification);
+            DaoClient.autoCompleteClientName(txtNameCliente);
         }
 
         private void txtSearchProduct_TextChanged(object sender, EventArgs e)
@@ -128,24 +183,24 @@ namespace Softband.Generics
             string Filter = "";
             if (rdCode.Checked)
             {
-                Filter = "Code";
+                Filter = "CODIGO";
             }
             else if (rdName.Checked)
             {
-                Filter = "Name";
+                Filter = "NOMBRE";
             }
             else if (rdDescription.Checked)
             {
-                Filter = "Description";
+                Filter = "DESCRIPCION";
             }
 
-            ds.DefaultView.RowFilter = (Filter + " like '%"+txtSearchProduct.Text.Trim()+"%'");
+            ds.DefaultView.RowFilter = (Filter + " like '%" + txtSearchProduct.Text.Trim() + "%'");
             dgvProducts.DataSource = ds.DefaultView;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            this.Close();
         }
 
         private void btnMinimize_Click(object sender, EventArgs e)
@@ -170,8 +225,9 @@ namespace Softband.Generics
                 else
                 {
                     Total += (Convert.ToDouble(item.Cells[2].Value) * 1);
-                }                
+                }
             }
+            dgvListado.Columns[2].DefaultCellStyle.Format = "c";
             txtAmount.Text = Total.ToString("C");
         }
 
@@ -217,7 +273,10 @@ namespace Softband.Generics
 
         private void button2_Click(object sender, EventArgs e)
         {
-            dgvListado.Rows.Remove(dgvListado.CurrentRow);
+            if (dgvListado.Rows.Count > 0)
+            {
+                dgvListado.Rows.Remove(dgvListado.CurrentRow);
+            }
             CalcularTotal();
         }
 
@@ -238,55 +297,172 @@ namespace Softband.Generics
 
         private void btnSaveExpence_Click(object sender, EventArgs e)
         {
-            if (dgvListado.Rows.Count >= 1)
+            if (!ckbCredito.Checked)
             {
-                newInvoice.Code = lblConsecutivo.Text;
-                if (txtIdentification.Text.Trim() != "")
+                if (dgvListado.Rows.Count >= 1)
                 {
-                    newInvoice.Identification = txtIdentification.Text.Trim();
+                    newInvoice.Code = "FAC" + GenericQuerys.Consecutivo().ToString();
+                    if (txtIdentification.Text.Trim() != "")
+                    {
+                        newInvoice.Identification = txtIdentification.Text.Trim();
+                    }
+                    else
+                    {
+                        newInvoice.Identification = "1";
+                    }
+                    if (txtNameCliente.Text != "" && txtNameCliente.Text != "---")
+                    {
+                        newInvoice.NameClient = lblNameClient.Text;
+                    }
+                    else
+                    {
+                        newInvoice.NameClient = "CLIENTE GENÉRICO";
+                    }
+                    
+                    newInvoice.Band = lblBanda.Text;
+
+                    newInvoice.Fecha = DateTime.Now.ToShortDateString();
+                    newInvoice.Amount = Convert.ToDouble(txtAmount.Text.ToString().Replace("$", ""));
+                    newInvoice.IdAccountIn = (int)cbAccountIn.SelectedValue;
+                    newInvoice.Active = true;
+
+                    DaoFact.insertInvoice(newInvoice);
+                    newInvoice = new Invoice();
+                    foreach (DataGridViewRow item in dgvListado.Rows)
+                    {
+                        newItemInvoice.Code = item.Cells[0].Value.ToString();
+                        newItemInvoice.Name = item.Cells[1].Value.ToString();
+                        newItemInvoice.Price = Convert.ToDouble(item.Cells[2].Value);
+
+                        if (Convert.ToInt32(item.Cells[3].Value) == 0)
+                        {
+                            newItemInvoice.Quantity = 1;
+                        }
+                        else
+                        {
+                            newItemInvoice.Quantity = Convert.ToInt32(item.Cells[3].Value);
+                        }
+
+                        newItemInvoice.CodeInvoice = lblConsecutivo.Text.Trim();
+                        newItemInvoice.Note = Convert.ToString(item.Cells[4].Value);
+
+                        DaoItemInvoice.insertItemInvoice(newItemInvoice);
+                    }
+
+                    AccountIn = DaoAccount.selectAccountId(Convert.ToInt32(cbAccountIn.SelectedValue));
+
+                    double ValueIn = AccountIn.Amount + Convert.ToDouble(txtAmount.Text.Trim().Replace("$", ""));
+
+                    AccountIn.Amount = ValueIn;
+                    DaoAccount.insertAccount(AccountIn);
+
+                    btnClear_Click(null, null);
+
+                    lblConsecutivo.Text = "FAC" + GenericQuerys.Consecutivo().ToString();
+
+                    MessageBox.Show("Factura guardada satisfactoriamente", "Información del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    newInvoice.Identification = "1";
+                    MessageBox.Show("Agregue productos atraves del código", "Error al guardar factura", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-                newInvoice.Fecha = DateTime.Today;
-                newInvoice.Amount = Convert.ToDouble(txtAmount.Text.ToString().Replace("$", ""));
-                newInvoice.IdAccountIn = (int)cbAccountIn.SelectedValue;
-                newInvoice.Active = true;
-
-                DaoFact.insertInvoice(newInvoice);
-                newInvoice = new Invoice();
-                foreach (DataGridViewRow item in dgvListado.Rows)
-                {
-                    newItemInvoice.Code = item.Cells[0].Value.ToString();
-                    newItemInvoice.Name = item.Cells[1].Value.ToString();
-                    newItemInvoice.Price = Convert.ToDouble(item.Cells[2].Value);
-                    newItemInvoice.Quantity = Convert.ToInt32(item.Cells[3].Value);
-                    newItemInvoice.CodeInvoice = lblConsecutivo.Text.Trim();
-                    newItemInvoice.Note = Convert.ToString(item.Cells[4].Value);
-
-                    DaoItemInvoice.insertItemInvoice(newItemInvoice);   
-                }
-
-                AccountIn = DaoAccount.selectAccountId(Convert.ToInt32(cbAccountIn.SelectedValue));
-                
-                double ValueIn = AccountIn.Amount + Convert.ToDouble(txtAmount.Text.Trim().Replace("$",""));
-
-                AccountIn.Amount = ValueIn;
-                DaoAccount.insertAccount(AccountIn);
-
-                btnClear_Click(null, null);
-
-                lblConsecutivo.Text = "FAC" + GenericQuerys.Consecutivo().ToString();
-
-                MessageBox.Show("Factura guardada satisfactoriamente","Información del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("Agregue productos atraves del código", "Error al guardar factura", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("IR ACREDITO");
             }
-            
         }
 
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCrearProducto_Click(object sender, EventArgs e)
+        {
+            Productos pdcto = new Productos();
+            pdcto.ShowDialog();
+        }
+
+        private void btnCrearProducto_Click_1(object sender, EventArgs e)
+        {
+            Productos pdcto = new Productos();
+            pdcto.ShowDialog();
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtIdentification_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                btnSearch_Click(null, null);
+            }
+        }
+
+        private void cbBandas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.lblBanda.Text = cbBandas.Text;
+        }
+
+        private void btnSendNameClient_Click(object sender, EventArgs e)
+        {
+            this.lblNameClient.Text = txtNameCliente.Text;
+        }
+
+        private void dgvProducts_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow dgvR = new DataGridViewRow();
+            dgvR = dgvProducts.Rows[this.dgvProducts.CurrentCell.RowIndex];
+
+            txtAddItem.Text = dgvR.Cells[1].Value.ToString().Trim();
+            button1_Click(null, null);
+        }
+
+        private void txtSearchProduct_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                DataGridViewRow dgvR = new DataGridViewRow();
+                dgvR = dgvProducts.Rows[this.dgvProducts.CurrentCell.RowIndex];
+
+                txtAddItem.Text = dgvR.Cells[1].Value.ToString().Trim();
+            }
+        }
+
+        private void btnAddBand_Click(object sender, EventArgs e)
+        {
+            Bandas bdn = new Bandas();
+            bdn.ShowDialog();
+        }
+
+        private void btnUser_Click(object sender, EventArgs e)
+        {
+            Cliente cliente = new Cliente();
+            cliente.ShowDialog();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvListado_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            CalcularTotal();
+        }
+
+        private void txtIdentification_Leave(object sender, EventArgs e)
+        {
+            btnSearch_Click(null, null);
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            GetAllProducts();
+        }
     }
 }

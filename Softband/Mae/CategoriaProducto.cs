@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,96 +18,46 @@ namespace Softband.Maestros
         public CategoriaProducto()
         {
             InitializeComponent();
-            GetAllCats();
+            CargarCategoriasGrid();
         }
 
         CategoriaProduct newCatProduct = new CategoriaProduct();
-        DaoCatProduct DaoCat = new DaoCatProduct();
+        DaoCatProduct daoCat = new DaoCatProduct();
         List<CategoriaProduct> Cats = new List<CategoriaProduct>();
 
-        public void GetAllCats()
+        public void CargarCategoriasGrid()
         {
-            Cats = DaoCat.getAllCats();
-
-            lvCats.Clear();
-
-            ListViewItem listBands = new ListViewItem();
-
-            foreach (CategoriaProduct _catProduct in Cats)
-            {
-                string active = "";
-                if (_catProduct.Active) { active = "ACTIVO"; } else { active = "INACTIVO"; };
-                ListViewItem lista = new ListViewItem(_catProduct.Id.ToString() + " | " + _catProduct.Code.ToString() + " | " + _catProduct.Name.ToString() + " | ESTADO* " + active);
-                lvCats.Items.Add(lista);
-            }
-
+            DataTable dt = daoCat.fillCategoriesDT();
+            dgvCategorias.DataSource = dt;
+            dgvCategorias.Columns[0].HeaderText = "CÓDIGO";
+            dgvCategorias.Columns[1].HeaderText = "NOMBRE";
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (txtCodeCatProd.Text.Trim() != "")
-                {
-                    if (DaoCat.ExistCatProduct(txtCodeCatProd.Text.Trim()))
-                    {
-                        newCatProduct = DaoCat.selectCatProduct(txtCodeCatProd.Text.Trim());
-
-                        txtCodeCatProd.Text = newCatProduct.Code.Trim();
-                        txtNameCatProd.Text = newCatProduct.Name.Trim();
-                        ckbActive.Checked = newCatProduct.Active;
-                    }
-                    else
-                    {
-                        btnClean_Click(null, null);
-                        MessageBox.Show("Banda no existente",
-                            "Validación",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Exclamation);
-                    }
-                }
-                else
-                {
-                    btnClean_Click(null, null);
-                    MessageBox.Show("El Campo Código no debe estar vacío",
-                        "Validación",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Exclamation);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar datos de la Banda:\n" + ex.Message,
-                    "Error del Sistema",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-
+        //Boton limpiar campos de texto
         private void btnClean_Click(object sender, EventArgs e)
         {
-            this.txtCodeCatProd.Text = "";
             this.txtNameCatProd.Text = "";
-            this.ckbActive.Checked = false;
         }
 
+        //Boton Borrar Categoria de producto
         private void btnDelete_Click(object sender, EventArgs e)
         {
             try
             {
-                DialogResult result = MessageBox.Show("¿Realmente desea Eliminar esta banda?",
+                DialogResult result = MessageBox.Show("¿Realmente desea Eliminar esta categoría de producto?",
                     "Confirmación",
                     MessageBoxButtons.YesNoCancel, 
                     MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
-                    if (txtCodeCatProd.Text.Trim() != "")
+                    if (txtNameCatProd.Text.Trim() != "")
                     {
-                        if (DaoCat.deleteCatProduct(txtCodeCatProd.Text.Trim()))
+                        if (daoCat.deleteCatProduct(newCatProduct.Id))
                         {
+                            CargarCategoriasGrid();
                             MessageBox.Show("Categoría de Producto Eliminado",
-                            "Información",
+                            "Información del sistema",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
                         }else{
@@ -119,7 +70,7 @@ namespace Softband.Maestros
                     }
                     else
                     {
-                        MessageBox.Show("Campos obligatorios:\n*Código",
+                        MessageBox.Show("Campos obligatorios:\n*Nombre",
                             "Validación",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation);
@@ -128,35 +79,33 @@ namespace Softband.Maestros
                 else if (result == DialogResult.No)
                 {
                     txtNameCatProd.Text = "";
-                    txtCodeCatProd.Text = "";
-                    ckbActive.Checked = false;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al Eliminar Banda:\n" + ex.Message,
+                MessageBox.Show("Error al Eliminar Categoría de Producto:\n" + ex.Message,
                     "Error del Sistema",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
         }
 
+        //Boton Guardar Categoria de producto
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
-                if (txtCodeCatProd.Text.Trim() != "" && txtNameCatProd.Text.Trim() != "")
+                if (txtNameCatProd.Text.Trim() != "")
                 {
-                    newCatProduct.Code = txtCodeCatProd.Text.Trim();
                     newCatProduct.Name = txtNameCatProd.Text.Trim();
-                    newCatProduct.Active = ckbActive.Checked;
 
-                    DaoCat.insertCatproduct(newCatProduct);
-                    MessageBox.Show("Banda guardada:\n" + newCatProduct.Name, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    daoCat.insertCatproduct(newCatProduct);
+                    CargarCategoriasGrid();
+                    MessageBox.Show("Categoría de producto guardada:\n" + newCatProduct.Name, "Información del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Campos obligatorios:\n*Código\n*Nombre", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Campos obligatorios:\n*Nombre", "Validación del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
@@ -165,19 +114,82 @@ namespace Softband.Maestros
             }
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
-        }
-
-        private void btnMinimize_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
         private void CategoriaProducto_Load(object sender, EventArgs e)
         {
-
+            daoCat.autoCompleteCatName(txtNameCatProd);
         }
+
+        private void dgvCategorias_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow dgvR = new DataGridViewRow();
+            dgvR = dgvCategorias.Rows[this.dgvCategorias.CurrentCell.RowIndex];
+
+            newCatProduct.Id = Convert.ToInt32(dgvR.Cells[0].Value);
+            newCatProduct.Name = dgvR.Cells[1].Value.ToString();
+
+            txtNameCatProd.Text = newCatProduct.Name;
+        }
+
+        //Boton Exportar Grid A Excel
+        #region Exportar a excel
+        private void btnExport_Click_1(object sender, EventArgs e)
+        {
+            //ExportToExcel();
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Documentos de Excel (*.xls)|*.xls";
+            sfd.FileName = "Softband - Listado de Categorias de Productos - " + DateTime.Now.ToShortDateString().Replace("/", "_") + ".xls";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                ToExcel(dgvCategorias, sfd.FileName); // Here dataGridview1 is your grid view name
+            }
+        }
+
+        private void ToExcel(DataGridView dGV, string filename)
+        {
+            string stOutput = "";
+            // Export titles:
+            string sHeaders = "";
+
+            for (int j = 0; j < dGV.Columns.Count; j++)
+                sHeaders = sHeaders.ToString() + Convert.ToString(dGV.Columns[j].HeaderText) + "\t";
+            stOutput += sHeaders + "\r\n";
+            // Export data.
+            for (int i = 0; i < dGV.RowCount; i++)
+            {
+                string stLine = "";
+                for (int j = 0; j < dGV.Rows[i].Cells.Count; j++)
+                    stLine = stLine.ToString() + Convert.ToString(dGV.Rows[i].Cells[j].Value) + "\t";
+                stOutput += stLine + "\r\n";
+            }
+            Encoding utf16 = Encoding.GetEncoding(1254);
+            byte[] output = utf16.GetBytes(stOutput);
+            FileStream fs = new FileStream(filename, FileMode.Create);
+            BinaryWriter bw = new BinaryWriter(fs);
+            bw.Write(output, 0, output.Length); //write the encoded file
+            bw.Flush();
+            bw.Close();
+            fs.Close();
+        }
+
+        private void releaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show("Exception Occured while releasing object " + ex.ToString());
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+        #endregion
+
+        
     }
 }

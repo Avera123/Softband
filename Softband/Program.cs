@@ -1,6 +1,8 @@
 ﻿using Softband.Generics;
 using Softband.Mae;
 using Softband.Maestros;
+using Softband.Reports;
+using Softband.Reports.Reports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +20,8 @@ namespace Softband
         static void Main()
         {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+            Application.SetCompatibleTextRenderingDefault(false);            
+            Application.Run(new Ventas());
         }
     }
 }
