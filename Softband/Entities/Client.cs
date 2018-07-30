@@ -17,5 +17,6 @@ namespace Softband.Entities
         public string Phone { get; set; }
         public string MobilePhone { get; set; }
         public double Credit { get; set; }
+        public string Banda { get; set; }
     }
 }

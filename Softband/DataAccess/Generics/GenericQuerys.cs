@@ -224,7 +224,7 @@ namespace Softband.DataAccess.Generics
             DataTable dt = new DataTable();
             try
             {
-                MySqlDataAdapter da = new MySqlDataAdapter("Select id AS ID, code AS CODIGO, name AS NOMBRE, description AS DESCRIPCION, costbuy AS COSTO, stock From producto", ConectDB.getConection());
+                MySqlDataAdapter da = new MySqlDataAdapter("Select id AS ID, code AS CODIGO, name AS NOMBRE, description AS DESCRIPCION, costsale AS COSTO, stock From producto", ConectDB.getConection());
                 da.Fill(dt);
             }
             catch (Exception ex)
@@ -241,6 +241,38 @@ namespace Softband.DataAccess.Generics
             try
             {
                 MySqlDataAdapter da = new MySqlDataAdapter("Select id, name From banco", ConectDB.getConection());
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en la carga de datos: " + ex.Message);
+            }
+
+            return dt;
+        }
+
+        public DataTable fillMovesIngresosEgresosDT()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                MySqlDataAdapter da = new MySqlDataAdapter("SELECT t1.id AS ID, t1.idaccount AS IDCUENTA, t2.name AS CUENTAAFECTADA, t1.idcatmovement AS IDCATEGORIA, t3.name AS CATEGORIA, t1.idtypemovement AS IDTIPOMOVIMIENTO, t1.amount AS MONTO, t1.description AS DESCRIPCION, t1.date AS FECHA FROM movimientosmonetarios t1, cuenta t2, categoriamovimientos t3 WHERE t1.idaccount = t2.id AND t1.idcatmovement = t3.id;", ConectDB.getConection());
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en la carga de datos: " + ex.Message);
+            }
+
+            return dt;
+        }
+
+        public DataTable fillFacturasDT()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                MySqlDataAdapter da = new MySqlDataAdapter("SELECT t1.id AS ID, t1.idaccount AS IDCUENTA, t2.name AS CUENTAAFECTADA, t1.idcatmovement AS IDCATEGORIA, t3.name AS CATEGORIA, t1.idtypemovement AS IDTIPOMOVIMIENTO, t1.amount AS MONTO, t1.description AS DESCRIPCION, t1.date AS FECHA FROM movimientosmonetarios t1, cuenta t2, categoriamovimientos t3 WHERE t1.idaccount = t2.id AND t1.idcatmovement = t3.id;", ConectDB.getConection());
                 da.Fill(dt);
             }
             catch (Exception ex)
@@ -272,7 +304,7 @@ namespace Softband.DataAccess.Generics
         }
 
         public int Consecutivo()
-        {
+            {
             string Query = "SELECT MAX(id) as id FROM factura;";
 
             MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());

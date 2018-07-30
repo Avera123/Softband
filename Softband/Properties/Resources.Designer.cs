@@ -22,7 +22,7 @@ namespace Softband.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Softband.Properties {
         ///   Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Softband.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Softband.Properties {
         ///   búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap arrow_21_64 {
+        public static System.Drawing.Bitmap arrow_21_64 {
             get {
                 object obj = ResourceManager.GetObject("arrow-21-64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +73,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Bandasx50 {
+        public static System.Drawing.Bitmap Bandasx50 {
             get {
                 object obj = ResourceManager.GetObject("Bandasx50", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -83,7 +83,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap close_window_50 {
+        public static System.Drawing.Bitmap close_window_50 {
             get {
                 object obj = ResourceManager.GetObject("close-window-50", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -93,7 +93,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap delete_30 {
+        public static System.Drawing.Bitmap delete_30 {
             get {
                 object obj = ResourceManager.GetObject("delete-30", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +103,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DEUDAS {
+        public static System.Drawing.Bitmap DEUDAS {
             get {
                 object obj = ResourceManager.GetObject("DEUDAS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -113,7 +113,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap eraser_30 {
+        public static System.Drawing.Bitmap eraser_30 {
             get {
                 object obj = ResourceManager.GetObject("eraser-30", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -123,7 +123,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap excel_3_256 {
+        public static System.Drawing.Bitmap excel_3_256 {
             get {
                 object obj = ResourceManager.GetObject("excel-3-256", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -133,7 +133,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap fullscreen_exit_128 {
+        public static System.Drawing.Bitmap fullscreen_exit_128 {
             get {
                 object obj = ResourceManager.GetObject("fullscreen-exit-128", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -143,7 +143,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Ingreso {
+        public static System.Drawing.Bitmap Ingreso {
             get {
                 object obj = ResourceManager.GetObject("Ingreso", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -153,7 +153,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap INGRESOS {
+        public static System.Drawing.Bitmap INGRESOS {
             get {
                 object obj = ResourceManager.GetObject("INGRESOS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -163,7 +163,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap INGRESOS1 {
+        public static System.Drawing.Bitmap INGRESOS1 {
             get {
                 object obj = ResourceManager.GetObject("INGRESOS1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -173,7 +173,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap INGRESOSSALIDAS {
+        public static System.Drawing.Bitmap INGRESOSSALIDAS {
             get {
                 object obj = ResourceManager.GetObject("INGRESOSSALIDAS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -183,7 +183,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap login_512 {
+        public static System.Drawing.Bitmap login_512 {
             get {
                 object obj = ResourceManager.GetObject("login-512", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -193,7 +193,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap login_5121 {
+        public static System.Drawing.Bitmap login_5121 {
             get {
                 object obj = ResourceManager.GetObject("login-5121", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -203,7 +203,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Logo_La_Sala {
+        public static System.Drawing.Bitmap Logo_La_Sala {
             get {
                 object obj = ResourceManager.GetObject("Logo-La-Sala", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -213,7 +213,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap magnifying_glass_3_30 {
+        public static System.Drawing.Bitmap magnifying_glass_3_30 {
             get {
                 object obj = ResourceManager.GetObject("magnifying-glass-3-30", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -223,7 +223,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap minimize_window_50 {
+        public static System.Drawing.Bitmap minimize_window_50 {
             get {
                 object obj = ResourceManager.GetObject("minimize-window-50", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -233,7 +233,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap minimize_window_50__1_ {
+        public static System.Drawing.Bitmap minimize_window_50__1_ {
             get {
                 object obj = ResourceManager.GetObject("minimize-window-50 (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -243,7 +243,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap minus_2_64 {
+        public static System.Drawing.Bitmap minus_2_64 {
             get {
                 object obj = ResourceManager.GetObject("minus-2-64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -253,7 +253,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap PAGOS {
+        public static System.Drawing.Bitmap PAGOS {
             get {
                 object obj = ResourceManager.GetObject("PAGOS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -263,7 +263,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap plus_2_64 {
+        public static System.Drawing.Bitmap plus_2_64 {
             get {
                 object obj = ResourceManager.GetObject("plus-2-64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -273,7 +273,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap printer_64 {
+        public static System.Drawing.Bitmap printer_64 {
             get {
                 object obj = ResourceManager.GetObject("printer-64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -283,7 +283,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap printer_64__1_ {
+        public static System.Drawing.Bitmap printer_64__1_ {
             get {
                 object obj = ResourceManager.GetObject("printer-64 (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -293,7 +293,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap PROMOCIONES {
+        public static System.Drawing.Bitmap PROMOCIONES {
             get {
                 object obj = ResourceManager.GetObject("PROMOCIONES", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -303,7 +303,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SALIDAS {
+        public static System.Drawing.Bitmap SALIDAS {
             get {
                 object obj = ResourceManager.GetObject("SALIDAS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -313,7 +313,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SALIDAS1 {
+        public static System.Drawing.Bitmap SALIDAS1 {
             get {
                 object obj = ResourceManager.GetObject("SALIDAS1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -323,7 +323,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SALIR {
+        public static System.Drawing.Bitmap SALIR {
             get {
                 object obj = ResourceManager.GetObject("SALIR", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -333,7 +333,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap save_128 {
+        public static System.Drawing.Bitmap save_128 {
             get {
                 object obj = ResourceManager.GetObject("save-128", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -343,7 +343,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap save_30 {
+        public static System.Drawing.Bitmap save_30 {
             get {
                 object obj = ResourceManager.GetObject("save-30", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -353,7 +353,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap save_35 {
+        public static System.Drawing.Bitmap save_35 {
             get {
                 object obj = ResourceManager.GetObject("save-35", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -363,7 +363,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap save_351 {
+        public static System.Drawing.Bitmap save_351 {
             get {
                 object obj = ResourceManager.GetObject("save-351", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -373,7 +373,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap save_64 {
+        public static System.Drawing.Bitmap save_64 {
             get {
                 object obj = ResourceManager.GetObject("save-64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -383,7 +383,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TRANSACCIONES {
+        public static System.Drawing.Bitmap TRANSACCIONES {
             get {
                 object obj = ResourceManager.GetObject("TRANSACCIONES", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -393,7 +393,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TRANSACCIONES2 {
+        public static System.Drawing.Bitmap TRANSACCIONES2 {
             get {
                 object obj = ResourceManager.GetObject("TRANSACCIONES2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -403,7 +403,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TRANSACCIONES21 {
+        public static System.Drawing.Bitmap TRANSACCIONES21 {
             get {
                 object obj = ResourceManager.GetObject("TRANSACCIONES21", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -413,7 +413,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap undo_5_256 {
+        public static System.Drawing.Bitmap undo_5_256 {
             get {
                 object obj = ResourceManager.GetObject("undo-5-256", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -423,7 +423,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap VENTA {
+        public static System.Drawing.Bitmap VENTA {
             get {
                 object obj = ResourceManager.GetObject("VENTA", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -433,7 +433,7 @@ namespace Softband.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap VENTA2 {
+        public static System.Drawing.Bitmap VENTA2 {
             get {
                 object obj = ResourceManager.GetObject("VENTA2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

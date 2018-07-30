@@ -28,18 +28,9 @@ namespace Softband.Maestros
         public void GetAllUsers()
         {
             Users = DaoUser.getAllUsers();
-
-            //lvUsers.Clear();
+            
             dgvUsers.Rows.Clear();
-
-            /*foreach (User _user in Users)
-            {
-                string active = "";
-                if (_user.Active) { active = "ACTIVO"; } else { active = "INACTIVO"; };
-                ListViewItem lista = new ListViewItem(_user.Id.ToString() + " | " + _user.ID.ToString() + " | " + _user.Name.ToString() + " | ESTADO* " + active);
-                lvUsers.Items.Add(lista);
-            }*/
-
+            
             foreach (User _user in Users)
             {
                 dgvUsers.Rows.Add(_user.Id,_user.ID,_user.Name,_user.NickName,_user.Active);
@@ -140,7 +131,7 @@ namespace Softband.Maestros
                     else
                     {
                         btnClear_Click(null, null);
-                        MessageBox.Show("El banco no existente",
+                        MessageBox.Show("El usuario no existente",
                             "Validación",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation);
@@ -285,5 +276,11 @@ namespace Softband.Maestros
             }
         }
         #endregion
+
+        private void metroCheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+           this.txtPassword.UseSystemPasswordChar = !metroCheckBox1.Checked;
+           this.txtPassword2.UseSystemPasswordChar = !metroCheckBox1.Checked;
+        }
     }
 }

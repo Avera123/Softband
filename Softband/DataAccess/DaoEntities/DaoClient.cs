@@ -13,6 +13,7 @@ namespace Softband.DataAccess.DaoEntities
     public class DaoClient
     {
         Client newClient = new Client();
+        Band newBand = new Band();
         List<Client> ListClients = new List<Client>();
         ConectionDB ConectDB = new ConectionDB();
         string Query = "";
@@ -54,8 +55,8 @@ namespace Softband.DataAccess.DaoEntities
 
         public Client selectClient(string _ID)
         {
-            string Query = "SELECT * FROM cliente WHERE identification ='" + _ID + "';";
-
+            string Query = "SELECT t1.*, t2.name AS banda FROM cliente t1, banda t2 WHERE t1.identification = '"+_ID+"' AND t1.idband = t2.id";
+            
             MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
 
             MySqlDataReader reader;
@@ -73,6 +74,7 @@ namespace Softband.DataAccess.DaoEntities
                 newClient.Phone = (string)reader["phone"];
                 newClient.MobilePhone = (string)reader["mobilephone"];
                 newClient.Credit = (double)reader["credit"];
+                newClient.Banda = (string)reader["banda"];
             }
             reader.Close();
 

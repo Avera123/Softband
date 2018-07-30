@@ -1,4 +1,7 @@
-﻿using Softband.DataAccess.Generics;
+﻿using MySql.Data.MySqlClient;
+using Softband.DataAccess;
+using Softband.DataAccess.Generics;
+using Softband.Mae;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,20 +22,85 @@ namespace Softband.Reports
             InitializeComponent();
         }
 
+        ConectionDB ConectDB = new ConectionDB();
+
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             DaoRepVentas daoRepVentas = new DaoRepVentas();
             DataSet dsData = daoRepVentas.getVentasMes(dtpFecha.Value.ToShortDateString());
             refreshData();
+            dgvData.Columns.Clear();
+            dgvData.Rows.Clear();
             dgvData.DataSource = dsData.Tables[0];
+
+            DataGridViewColumn colum = new DataGridViewColumn();
+            colum.HeaderText = "FacturaEnDeuda";
+            colum.CellTemplate = new DataGridViewTextBoxCell();
+            dgvData.Columns.Add(colum);
+
+            int idFact = 0;
+            string Fact = "";
+            double totalDeudas = 0;
+            int countDeudas = 0;
+
+            System.Collections.IList list = dgvData.Rows;
+            for (int i = 0; i < list.Count; i++)
+            {
+                DataGridViewRow row = (DataGridViewRow)list[i];
+                string Query = "SELECT deuda.id AS CODIGODEUDA, deuda.codeFact AS FACTURA, amount AS MONTO FROM deuda WHERE deuda.codeFact = '" + row.Cells[0].Value + "' AND deuda.active = 1;";
+
+                MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
+
+                MySqlDataReader reader;
+
+                reader = Cmm.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        idFact = (int)reader["CODIGODEUDA"];
+                        Fact = (string)reader["FACTURA"];
+                    }
+
+                    if (idFact > 0)
+                    {
+                        row.Cells[7].Value = "SI";
+                        row.Cells[7].ReadOnly = true;
+                        row.Cells[7].Style.BackColor = Color.Red;
+                    }
+                    else
+                    {
+                        row.Cells[7].Value = "NO";
+                        row.Cells[7].ReadOnly = true;
+                        row.Cells[7].Style.BackColor = Color.Green;
+                    }
+                }
+
+                Cmm.Connection.Close();
+            }
+            RecalcularTotales();
+        }
+
+        public void RecalcularTotales()
+        {
+            Double totalizacion = 0;
+            foreach (DataGridViewRow row in dgvData.Rows)
+            {
+                totalizacion += Convert.ToDouble(row.Cells[5].Value);
+            }
+            lblCantidadEnDeuda.Text = Convert.ToString(dgvData.Rows.Count);
+            lblTotalizarDeudas.Text = totalizacion.ToString();
         }
 
         private void refreshData()
         {
             dgvData.DataSource = null;
         }
-
-
+        
+        /*
+         * Generar Excel
+         */
         private void ToCsV(DataGridView dGV, string filename)
         {
             string stOutput = "";
@@ -89,6 +157,20 @@ namespace Softband.Reports
                 //ToCsV(dataGridView1, @"c:\export.xls");
                 ToCsV(dgvData, sfd.FileName); // Here dataGridview1 is your grid view name
             }
+        }
+
+        private void dgvData_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow dgvR = new DataGridViewRow();
+            dgvR = dgvData.Rows[this.dgvData.CurrentCell.RowIndex];
+
+            VistaDetalleFactura detalle = new VistaDetalleFactura(dgvR.Cells[0].Value.ToString().Trim());
+            detalle.ShowDialog();
+        }
+
+        private void VentasMes_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

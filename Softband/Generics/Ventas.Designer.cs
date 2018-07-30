@@ -33,7 +33,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ventas));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnClear = new System.Windows.Forms.Button();
+            this.btnSaveExpence = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnRefreshBandas = new System.Windows.Forms.Button();
+            this.btnRefreshCuentas = new System.Windows.Forms.Button();
             this.btnUser = new System.Windows.Forms.Button();
             this.btnSendNameClient = new System.Windows.Forms.Button();
             this.btnAddBand = new System.Windows.Forms.Button();
@@ -45,6 +48,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.btnCrearCuenta = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.btnCrearProducto = new System.Windows.Forms.Button();
             this.txtSearchProduct = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
@@ -52,19 +56,30 @@
             this.rdDescription = new System.Windows.Forms.RadioButton();
             this.rdName = new System.Windows.Forms.RadioButton();
             this.dgvProducts = new System.Windows.Forms.DataGridView();
-            this.ckbCredito = new System.Windows.Forms.CheckBox();
             this.label21 = new System.Windows.Forms.Label();
             this.txtIdentification = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.cbAccountIn = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.ckbCredito = new System.Windows.Forms.CheckBox();
             this.txtAmount = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.lblCreditoDisponible = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txtAbono = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.lblConsecutivo = new System.Windows.Forms.Label();
             this.txtAddItem = new System.Windows.Forms.TextBox();
             this.dgvListado = new System.Windows.Forms.DataGridView();
+            this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameProduct = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nota = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblIDClient = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -91,17 +106,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.txtAbono = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.Nota = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameProduct = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnSaveExpence = new System.Windows.Forms.Button();
-            this.label24 = new System.Windows.Forms.Label();
-            this.lblCreditoDisponible = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -117,7 +121,7 @@
             this.panel1.Controls.Add(this.btnClear);
             this.panel1.Controls.Add(this.btnSaveExpence);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 645);
+            this.panel1.Location = new System.Drawing.Point(0, 663);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1045, 47);
             this.panel1.TabIndex = 36;
@@ -137,8 +141,25 @@
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
+            // btnSaveExpence
+            // 
+            this.btnSaveExpence.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnSaveExpence.BackgroundImage = global::Softband.Properties.Resources.save_128;
+            this.btnSaveExpence.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSaveExpence.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveExpence.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnSaveExpence.Location = new System.Drawing.Point(10, 4);
+            this.btnSaveExpence.Name = "btnSaveExpence";
+            this.btnSaveExpence.Size = new System.Drawing.Size(40, 40);
+            this.btnSaveExpence.TabIndex = 42;
+            this.btnSaveExpence.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSaveExpence.UseVisualStyleBackColor = false;
+            this.btnSaveExpence.Click += new System.EventHandler(this.btnSaveExpence_Click);
+            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnRefreshBandas);
+            this.groupBox1.Controls.Add(this.btnRefreshCuentas);
             this.groupBox1.Controls.Add(this.btnUser);
             this.groupBox1.Controls.Add(this.btnSendNameClient);
             this.groupBox1.Controls.Add(this.btnAddBand);
@@ -160,11 +181,38 @@
             this.groupBox1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(10, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(518, 629);
+            this.groupBox1.Size = new System.Drawing.Size(518, 648);
             this.groupBox1.TabIndex = 37;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos y Filtros";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // btnRefreshBandas
+            // 
+            this.btnRefreshBandas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRefreshBandas.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnRefreshBandas.BackgroundImage = global::Softband.Properties.Resources.undo_5_256;
+            this.btnRefreshBandas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRefreshBandas.Location = new System.Drawing.Point(441, 99);
+            this.btnRefreshBandas.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRefreshBandas.Name = "btnRefreshBandas";
+            this.btnRefreshBandas.Size = new System.Drawing.Size(30, 30);
+            this.btnRefreshBandas.TabIndex = 64;
+            this.btnRefreshBandas.UseVisualStyleBackColor = false;
+            this.btnRefreshBandas.Click += new System.EventHandler(this.btnRefreshBandas_Click);
+            // 
+            // btnRefreshCuentas
+            // 
+            this.btnRefreshCuentas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRefreshCuentas.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnRefreshCuentas.BackgroundImage = global::Softband.Properties.Resources.undo_5_256;
+            this.btnRefreshCuentas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRefreshCuentas.Location = new System.Drawing.Point(441, 145);
+            this.btnRefreshCuentas.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRefreshCuentas.Name = "btnRefreshCuentas";
+            this.btnRefreshCuentas.Size = new System.Drawing.Size(30, 30);
+            this.btnRefreshCuentas.TabIndex = 59;
+            this.btnRefreshCuentas.UseVisualStyleBackColor = false;
+            this.btnRefreshCuentas.Click += new System.EventHandler(this.btnRefreshCuentas_Click);
             // 
             // btnUser
             // 
@@ -219,7 +267,7 @@
             ""});
             this.cbBandas.Location = new System.Drawing.Point(168, 100);
             this.cbBandas.Name = "cbBandas";
-            this.cbBandas.Size = new System.Drawing.Size(300, 28);
+            this.cbBandas.Size = new System.Drawing.Size(271, 28);
             this.cbBandas.TabIndex = 60;
             this.cbBandas.SelectedIndexChanged += new System.EventHandler(this.cbBandas_SelectedIndexChanged);
             // 
@@ -294,6 +342,7 @@
             this.btnCrearCuenta.TabIndex = 52;
             this.btnCrearCuenta.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCrearCuenta.UseVisualStyleBackColor = false;
+            this.btnCrearCuenta.Click += new System.EventHandler(this.btnCrearCuenta_Click);
             // 
             // groupBox4
             // 
@@ -315,6 +364,20 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Filtro por:";
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRefresh.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnRefresh.BackgroundImage = global::Softband.Properties.Resources.undo_5_256;
+            this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRefresh.Location = new System.Drawing.Point(419, 45);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(30, 30);
+            this.btnRefresh.TabIndex = 58;
+            this.btnRefresh.UseVisualStyleBackColor = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // btnCrearProducto
             // 
             this.btnCrearProducto.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -335,10 +398,10 @@
             this.txtSearchProduct.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtSearchProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearchProduct.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.txtSearchProduct.Location = new System.Drawing.Point(151, 46);
+            this.txtSearchProduct.Location = new System.Drawing.Point(166, 46);
             this.txtSearchProduct.MaxLength = 0;
             this.txtSearchProduct.Name = "txtSearchProduct";
-            this.txtSearchProduct.Size = new System.Drawing.Size(263, 27);
+            this.txtSearchProduct.Size = new System.Drawing.Size(248, 27);
             this.txtSearchProduct.TabIndex = 55;
             this.txtSearchProduct.TextChanged += new System.EventHandler(this.txtSearchProduct_TextChanged);
             this.txtSearchProduct.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearchProduct_KeyPress);
@@ -359,7 +422,7 @@
             this.rdCode.AutoSize = true;
             this.rdCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rdCode.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.rdCode.Location = new System.Drawing.Point(151, 19);
+            this.rdCode.Location = new System.Drawing.Point(164, 18);
             this.rdCode.Margin = new System.Windows.Forms.Padding(2);
             this.rdCode.Name = "rdCode";
             this.rdCode.Size = new System.Drawing.Size(58, 17);
@@ -373,7 +436,7 @@
             this.rdDescription.AutoSize = true;
             this.rdDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rdDescription.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.rdDescription.Location = new System.Drawing.Point(284, 19);
+            this.rdDescription.Location = new System.Drawing.Point(297, 18);
             this.rdDescription.Margin = new System.Windows.Forms.Padding(2);
             this.rdDescription.Name = "rdDescription";
             this.rdDescription.Size = new System.Drawing.Size(81, 17);
@@ -387,7 +450,7 @@
             this.rdName.AutoSize = true;
             this.rdName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rdName.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.rdName.Location = new System.Drawing.Point(215, 19);
+            this.rdName.Location = new System.Drawing.Point(228, 18);
             this.rdName.Margin = new System.Windows.Forms.Padding(2);
             this.rdName.Name = "rdName";
             this.rdName.Size = new System.Drawing.Size(62, 17);
@@ -422,19 +485,6 @@
             this.dgvProducts.Size = new System.Drawing.Size(485, 343);
             this.dgvProducts.TabIndex = 43;
             this.dgvProducts.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProducts_CellDoubleClick);
-            // 
-            // ckbCredito
-            // 
-            this.ckbCredito.AutoSize = true;
-            this.ckbCredito.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckbCredito.ForeColor = System.Drawing.Color.Red;
-            this.ckbCredito.Location = new System.Drawing.Point(16, 597);
-            this.ckbCredito.Margin = new System.Windows.Forms.Padding(2);
-            this.ckbCredito.Name = "ckbCredito";
-            this.ckbCredito.Size = new System.Drawing.Size(86, 19);
-            this.ckbCredito.TabIndex = 22;
-            this.ckbCredito.Text = "CRÉDITO";
-            this.ckbCredito.UseVisualStyleBackColor = true;
             // 
             // label21
             // 
@@ -495,7 +545,7 @@
             "EFECTIVO"});
             this.cbAccountIn.Location = new System.Drawing.Point(170, 146);
             this.cbAccountIn.Name = "cbAccountIn";
-            this.cbAccountIn.Size = new System.Drawing.Size(298, 28);
+            this.cbAccountIn.Size = new System.Drawing.Size(269, 28);
             this.cbAccountIn.TabIndex = 17;
             // 
             // label2
@@ -509,12 +559,26 @@
             this.label2.TabIndex = 14;
             this.label2.Text = "Identificación Cliente:";
             // 
+            // ckbCredito
+            // 
+            this.ckbCredito.AutoSize = true;
+            this.ckbCredito.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ckbCredito.ForeColor = System.Drawing.Color.Red;
+            this.ckbCredito.Location = new System.Drawing.Point(16, 597);
+            this.ckbCredito.Margin = new System.Windows.Forms.Padding(2);
+            this.ckbCredito.Name = "ckbCredito";
+            this.ckbCredito.Size = new System.Drawing.Size(86, 19);
+            this.ckbCredito.TabIndex = 22;
+            this.ckbCredito.Text = "CRÉDITO";
+            this.ckbCredito.UseVisualStyleBackColor = true;
+            this.ckbCredito.CheckedChanged += new System.EventHandler(this.ckbCredito_CheckedChanged);
+            // 
             // txtAmount
             // 
             this.txtAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAmount.ForeColor = System.Drawing.Color.Red;
             this.txtAmount.Location = new System.Drawing.Point(313, 561);
-            this.txtAmount.MaxLength = 250;
+            this.txtAmount.MaxLength = 10;
             this.txtAmount.Name = "txtAmount";
             this.txtAmount.ReadOnly = true;
             this.txtAmount.Size = new System.Drawing.Size(171, 24);
@@ -532,10 +596,10 @@
             this.label3.Size = new System.Drawing.Size(96, 15);
             this.label3.TabIndex = 3;
             this.label3.Text = "Total a pagar:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.lblCreditoDisponible);
             this.groupBox2.Controls.Add(this.label24);
             this.groupBox2.Controls.Add(this.txtAbono);
@@ -555,11 +619,70 @@
             this.groupBox2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(537, 8);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(498, 629);
+            this.groupBox2.Size = new System.Drawing.Size(498, 648);
             this.groupBox2.TabIndex = 38;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos de Facturación";
-            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.ForeColor = System.Drawing.Color.Red;
+            this.checkBox1.Location = new System.Drawing.Point(16, 620);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(170, 19);
+            this.checkBox1.TabIndex = 56;
+            this.checkBox1.Text = "ENVIAR POR CORREO";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.Visible = false;
+            // 
+            // lblCreditoDisponible
+            // 
+            this.lblCreditoDisponible.AutoSize = true;
+            this.lblCreditoDisponible.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCreditoDisponible.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblCreditoDisponible.Location = new System.Drawing.Point(181, 600);
+            this.lblCreditoDisponible.Name = "lblCreditoDisponible";
+            this.lblCreditoDisponible.Size = new System.Drawing.Size(34, 14);
+            this.lblCreditoDisponible.TabIndex = 55;
+            this.lblCreditoDisponible.Text = "$0.00";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label24.Location = new System.Drawing.Point(110, 600);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(68, 14);
+            this.label24.TabIndex = 54;
+            this.label24.Text = "Disponible:";
+            // 
+            // txtAbono
+            // 
+            this.txtAbono.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAbono.ForeColor = System.Drawing.Color.Red;
+            this.txtAbono.Location = new System.Drawing.Point(313, 590);
+            this.txtAbono.MaxLength = 10;
+            this.txtAbono.Name = "txtAbono";
+            this.txtAbono.Size = new System.Drawing.Size(171, 24);
+            this.txtAbono.TabIndex = 53;
+            this.txtAbono.Text = "0.00";
+            this.txtAbono.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtAbono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAbono_KeyPress);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label1.Location = new System.Drawing.Point(256, 595);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 15);
+            this.label1.TabIndex = 52;
+            this.label1.Text = "Abona:";
             // 
             // lblConsecutivo
             // 
@@ -604,6 +727,7 @@
             this.NameProduct,
             this.Amount,
             this.Cantidad,
+            this.SubTotal,
             this.Nota});
             this.dgvListado.Location = new System.Drawing.Point(16, 240);
             this.dgvListado.Margin = new System.Windows.Forms.Padding(2);
@@ -616,6 +740,39 @@
             this.dgvListado.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListado_CellLeave);
             this.dgvListado.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListado_RowEnter);
             this.dgvListado.Leave += new System.EventHandler(this.dgvListado_Leave);
+            // 
+            // Code
+            // 
+            this.Code.HeaderText = "Código";
+            this.Code.Name = "Code";
+            this.Code.ReadOnly = true;
+            // 
+            // NameProduct
+            // 
+            this.NameProduct.HeaderText = "Producto";
+            this.NameProduct.Name = "NameProduct";
+            this.NameProduct.ReadOnly = true;
+            // 
+            // Amount
+            // 
+            this.Amount.HeaderText = "Precio";
+            this.Amount.Name = "Amount";
+            this.Amount.ReadOnly = true;
+            // 
+            // Cantidad
+            // 
+            this.Cantidad.HeaderText = "Cantidad";
+            this.Cantidad.Name = "Cantidad";
+            // 
+            // SubTotal
+            // 
+            this.SubTotal.HeaderText = "SubTotal";
+            this.SubTotal.Name = "SubTotal";
+            // 
+            // Nota
+            // 
+            this.Nota.HeaderText = "Nota";
+            this.Nota.Name = "Nota";
             // 
             // lblIDClient
             // 
@@ -928,114 +1085,12 @@
             this.label6.TabIndex = 14;
             this.label6.Text = "Datos de Venta #:";
             // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefresh.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnRefresh.BackgroundImage = global::Softband.Properties.Resources.undo_5_256;
-            this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnRefresh.Location = new System.Drawing.Point(419, 45);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(2);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(30, 30);
-            this.btnRefresh.TabIndex = 58;
-            this.btnRefresh.UseVisualStyleBackColor = false;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
-            // txtAbono
-            // 
-            this.txtAbono.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAbono.ForeColor = System.Drawing.Color.Red;
-            this.txtAbono.Location = new System.Drawing.Point(313, 590);
-            this.txtAbono.MaxLength = 250;
-            this.txtAbono.Name = "txtAbono";
-            this.txtAbono.Size = new System.Drawing.Size(171, 24);
-            this.txtAbono.TabIndex = 53;
-            this.txtAbono.Text = "0.00";
-            this.txtAbono.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label1.Location = new System.Drawing.Point(256, 595);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 15);
-            this.label1.TabIndex = 52;
-            this.label1.Text = "Abona:";
-            // 
-            // Nota
-            // 
-            this.Nota.HeaderText = "Nota";
-            this.Nota.Name = "Nota";
-            // 
-            // Cantidad
-            // 
-            this.Cantidad.HeaderText = "Cantidad";
-            this.Cantidad.Name = "Cantidad";
-            // 
-            // Amount
-            // 
-            this.Amount.HeaderText = "Precio";
-            this.Amount.Name = "Amount";
-            this.Amount.ReadOnly = true;
-            // 
-            // NameProduct
-            // 
-            this.NameProduct.HeaderText = "Producto";
-            this.NameProduct.Name = "NameProduct";
-            this.NameProduct.ReadOnly = true;
-            // 
-            // Code
-            // 
-            this.Code.HeaderText = "Código";
-            this.Code.Name = "Code";
-            this.Code.ReadOnly = true;
-            // 
-            // btnSaveExpence
-            // 
-            this.btnSaveExpence.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnSaveExpence.BackgroundImage = global::Softband.Properties.Resources.save_128;
-            this.btnSaveExpence.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnSaveExpence.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveExpence.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnSaveExpence.Location = new System.Drawing.Point(10, 4);
-            this.btnSaveExpence.Name = "btnSaveExpence";
-            this.btnSaveExpence.Size = new System.Drawing.Size(40, 40);
-            this.btnSaveExpence.TabIndex = 42;
-            this.btnSaveExpence.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSaveExpence.UseVisualStyleBackColor = false;
-            this.btnSaveExpence.Click += new System.EventHandler(this.btnSaveExpence_Click);
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label24.Location = new System.Drawing.Point(120, 590);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(59, 14);
-            this.label24.TabIndex = 54;
-            this.label24.Text = "Disponible:";
-            // 
-            // lblCreditoDisponible
-            // 
-            this.lblCreditoDisponible.AutoSize = true;
-            this.lblCreditoDisponible.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCreditoDisponible.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblCreditoDisponible.Location = new System.Drawing.Point(142, 604);
-            this.lblCreditoDisponible.Name = "lblCreditoDisponible";
-            this.lblCreditoDisponible.Size = new System.Drawing.Size(34, 14);
-            this.lblCreditoDisponible.TabIndex = 55;
-            this.lblCreditoDisponible.Text = "$0.00";
-            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1045, 692);
+            this.ClientSize = new System.Drawing.Size(1045, 710);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
@@ -1126,13 +1181,17 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.TextBox txtAbono;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnSaveExpence;
+        private System.Windows.Forms.Label lblCreditoDisponible;
+        private System.Windows.Forms.Label label24;
         private System.Windows.Forms.DataGridViewTextBoxColumn Code;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameProduct;
         private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubTotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nota;
-        private System.Windows.Forms.Button btnSaveExpence;
-        private System.Windows.Forms.Label lblCreditoDisponible;
-        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Button btnRefreshBandas;
+        private System.Windows.Forms.Button btnRefreshCuentas;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

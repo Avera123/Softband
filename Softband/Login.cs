@@ -21,9 +21,9 @@ namespace Softband
         GenericQuerys Query = new GenericQuerys();
         private void Login_Load(object sender, EventArgs e)
         {
-            string ruta;
-            ruta = "C:/xampp/xampp-control.exe";
-            System.Diagnostics.Process.Start(ruta);
+            //string ruta;
+            //ruta = "C:/xampp/xampp-control.exe";
+            //System.Diagnostics.Process.Start(ruta);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

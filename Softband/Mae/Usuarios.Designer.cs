@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Usuarios));
             this.label8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnExport = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -54,7 +55,7 @@
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nick = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.btnExport = new System.Windows.Forms.Button();
+            this.metroCheckBox1 = new MetroFramework.Controls.MetroCheckBox();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -84,6 +85,23 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(902, 47);
             this.panel1.TabIndex = 37;
+            // 
+            // btnExport
+            // 
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExport.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnExport.BackgroundImage = global::Softband.Properties.Resources.excel_3_256;
+            this.btnExport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExport.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnExport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExport.Location = new System.Drawing.Point(859, 3);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(40, 40);
+            this.btnExport.TabIndex = 20;
+            this.btnExport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnExport.UseVisualStyleBackColor = false;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // btnSave
             // 
@@ -133,6 +151,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.metroCheckBox1);
             this.groupBox2.Controls.Add(this.txtNickName);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.groupBox1);
@@ -145,7 +164,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(10, 16);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(388, 333);
+            this.groupBox2.Size = new System.Drawing.Size(388, 350);
             this.groupBox2.TabIndex = 36;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos del Usuario";
@@ -178,9 +197,9 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtPassword);
             this.groupBox1.Location = new System.Drawing.Point(11, 142);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(371, 144);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
@@ -189,11 +208,11 @@
             // 
             this.txtPassword2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword2.Location = new System.Drawing.Point(9, 101);
-            this.txtPassword2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPassword2.Margin = new System.Windows.Forms.Padding(2);
             this.txtPassword2.Name = "txtPassword2";
-            this.txtPassword2.PasswordChar = '*';
             this.txtPassword2.Size = new System.Drawing.Size(354, 27);
             this.txtPassword2.TabIndex = 19;
+            this.txtPassword2.UseSystemPasswordChar = true;
             // 
             // label2
             // 
@@ -221,11 +240,11 @@
             // 
             this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.Location = new System.Drawing.Point(9, 45);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(354, 27);
             this.txtPassword.TabIndex = 17;
+            this.txtPassword.UseSystemPasswordChar = true;
             // 
             // txtIDUser
             // 
@@ -254,7 +273,7 @@
             this.ckbActive.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.ckbActive.FontSize = MetroFramework.MetroLinkSize.Medium;
             this.ckbActive.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ckbActive.Location = new System.Drawing.Point(3, 311);
+            this.ckbActive.Location = new System.Drawing.Point(3, 328);
             this.ckbActive.Name = "ckbActive";
             this.ckbActive.Size = new System.Drawing.Size(382, 19);
             this.ckbActive.TabIndex = 13;
@@ -305,12 +324,12 @@
             this.name,
             this.nick,
             this.active});
-            this.dgvUsers.Location = new System.Drawing.Point(403, 52);
-            this.dgvUsers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvUsers.Location = new System.Drawing.Point(403, 51);
+            this.dgvUsers.Margin = new System.Windows.Forms.Padding(2);
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.ReadOnly = true;
             this.dgvUsers.RowTemplate.Height = 24;
-            this.dgvUsers.Size = new System.Drawing.Size(490, 297);
+            this.dgvUsers.Size = new System.Drawing.Size(490, 314);
             this.dgvUsers.TabIndex = 41;
             this.dgvUsers.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellDoubleClick);
             // 
@@ -346,22 +365,19 @@
             this.active.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.active.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // btnExport
+            // metroCheckBox1
             // 
-            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExport.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnExport.BackgroundImage = global::Softband.Properties.Resources.excel_3_256;
-            this.btnExport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExport.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnExport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExport.Location = new System.Drawing.Point(859, 3);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(40, 40);
-            this.btnExport.TabIndex = 20;
-            this.btnExport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnExport.UseVisualStyleBackColor = false;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            this.metroCheckBox1.AutoSize = true;
+            this.metroCheckBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.metroCheckBox1.FontSize = MetroFramework.MetroLinkSize.Medium;
+            this.metroCheckBox1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.metroCheckBox1.Location = new System.Drawing.Point(3, 309);
+            this.metroCheckBox1.Name = "metroCheckBox1";
+            this.metroCheckBox1.Size = new System.Drawing.Size(382, 19);
+            this.metroCheckBox1.TabIndex = 23;
+            this.metroCheckBox1.Text = "Ver Contraseña";
+            this.metroCheckBox1.UseVisualStyleBackColor = true;
+            this.metroCheckBox1.CheckedChanged += new System.EventHandler(this.metroCheckBox1_CheckedChanged);
             // 
             // Usuarios
             // 
@@ -418,5 +434,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nick;
         private System.Windows.Forms.DataGridViewCheckBoxColumn active;
         private System.Windows.Forms.Button btnExport;
+        private MetroFramework.Controls.MetroCheckBox metroCheckBox1;
     }
 }

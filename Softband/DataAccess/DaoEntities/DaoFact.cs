@@ -154,6 +154,33 @@ namespace Softband.DataAccess.DaoEntities
             }
         }
 
+        public Invoice getInvoice(string _Code)
+        {
+            Invoice inv = new Invoice();
+            string Query = "SELECT * FROM factura WHERE code ='" + _Code + "';";
+
+            MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
+
+            MySqlDataReader reader;
+
+            reader = Cmm.ExecuteReader();
+            if (reader.Read())
+            {
+                inv.Id = (int)reader["id"];
+                inv.Code = (string)reader["code"];
+                inv.Identification = (string)reader["identification"];
+                inv.NameClient = (string)reader["nameClient"];
+                inv.Band = (string)reader["banda"];
+                inv.Amount = (double)reader["amount"];
+                inv.Band = (string)reader["banda"];
+                inv.Fecha = (string)reader["fecha"];
+                inv.Active = (bool)reader["active"];
+            }
+
+            Cmm.Connection.Close();
+            return inv;
+        }
+
         public bool ExistInvoice(string _Code)
         {
             string Query = "SELECT * FROM factura WHERE code ='" + _Code + "';";
@@ -174,6 +201,29 @@ namespace Softband.DataAccess.DaoEntities
             {
                 return false;
             }
+        }
+
+        public Double getSaldoByIDCliente(string _Id)
+        {
+            double saldo;
+            string Query = "SELECT IDClient AS IDENTIFICACION, SUM(amount) AS SALDO, nameClient AS NOMBRECLIENTE FROM deuda WHERE IDClient = '" + _Id + "' AND active = 1 GROUP BY IDClient;";
+
+            MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
+
+            MySqlDataReader reader;
+
+            reader = Cmm.ExecuteReader();
+
+            if (reader.Read())
+            {
+                saldo = (double)reader["SALDO"];
+            }
+            else
+            {
+                saldo = 0;
+            }
+
+            return saldo;
         }
     }
 }

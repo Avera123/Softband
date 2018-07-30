@@ -27,6 +27,8 @@ namespace Softband.Generics
         Account AccountIn = new Account();
         Account AccountOut = new Account();
         DaoAccount DaoAccount = new DaoAccount();
+        MovesMoney Transfer = new MovesMoney();
+        Transfer NewTransfer = new Transfer();
 
         public void FillCbAccountsOut()
         {
@@ -70,6 +72,14 @@ namespace Softband.Generics
                     DaoAccount.insertAccount(AccountOut);
                     DaoAccount.insertAccount(AccountIn);
 
+                    NewTransfer.IdAccountIn = AccountIn.Id;
+                    NewTransfer.IdAccountOut = AccountOut.Id;
+                    NewTransfer.Amount = Convert.ToDouble(txtAmount.Text.Trim());
+                    NewTransfer.Date = DateTime.Now.ToShortDateString();
+                    NewTransfer.Description = txtDescription.Text.Trim();
+
+                    Transfer.insertTransferMoneyAccount(NewTransfer);
+
                     MessageBox.Show("Movimiento realizado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }
@@ -93,6 +103,7 @@ namespace Softband.Generics
             cbAccountIn.SelectedIndex = 0;
             cbAccountOut.SelectedIndex = 0;
             this.txtAmount.Text= "0.00";
+            this.txtDescription.Text = "";
         }
 
         private void btnClose_Click(object sender, EventArgs e)

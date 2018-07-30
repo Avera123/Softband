@@ -101,5 +101,31 @@ namespace Softband.Reports
             }
         }
 
+        public void RecalcularTotales()
+        {
+            Double totalizacion = 0;
+            foreach (DataGridViewRow row in dgvData.Rows)
+            {
+                totalizacion += Convert.ToDouble(row.Cells[5].Value);
+            }
+            lblCantidadEnDeuda.Text = Convert.ToString(dgvData.Rows.Count);
+            lblVentas.Text = totalizacion.ToString();
+        }
+        private void btnConsolidar_Click(object sender, EventArgs e)
+        {
+            GenerarTotales();
+        }
+
+        public void GenerarTotales()
+        {
+            Double TotalSistema = 0;
+
+            for (int i = 0; i < dgvData.Rows.Count; i++)
+            {
+                TotalSistema += Convert.ToDouble(dgvData.Rows[i].Cells[5].Value);
+            }
+
+            lblVentas.Text = TotalSistema.ToString("C");
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace Softband.DataAccess.DaoEntities
         ConectionDB ConectDB = new ConectionDB();
         Account newAccount = new Account();
         private string Query;
-        
+
         public List<Account> getCajas()
         {
             List<Account> ListAccount = new List<Account>();
@@ -27,7 +27,7 @@ namespace Softband.DataAccess.DaoEntities
             MySqlDataReader reader;
 
             reader = Cmm.ExecuteReader();
-            
+
             if (reader.HasRows)
             {
                 while (reader.Read())
@@ -57,7 +57,7 @@ namespace Softband.DataAccess.DaoEntities
             MySqlDataReader reader;
 
             reader = Cmm.ExecuteReader();
-            
+
             if (reader.HasRows)
             {
                 while (reader.Read())
@@ -125,7 +125,7 @@ namespace Softband.DataAccess.DaoEntities
                     _Account.IdBank.ToString() + "','" +
                     _Account.Description.Trim() + "','" +
                     _Account.Type.ToString() + "','" +
-                    _Account.Amount +"');";
+                    _Account.Amount + "');";
                 }
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
@@ -139,6 +139,46 @@ namespace Softband.DataAccess.DaoEntities
             }
         }
 
+        public void updateValuesAccount(List<Account> _Accounts)
+        {
+            try
+            {
+                foreach (Account _Account in _Accounts)
+                {
+                    if (ExistAccount(_Account.Id))
+                    {
+                        try
+                        {
+                            Query = "UPDATE cuenta SET amount='" + _Account.Amount.ToString() + "'" +
+                            " WHERE id='" + _Account.Id + "';";
+
+                            MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
+                            Cmm.ExecuteNonQuery();
+                            Cmm.Connection.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al Actualizar monto Cuenta:\n" + ex.Message,
+                                "Error del Sistema",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al actualizar monto: \nAl parecer la cuenta que indicas no está registrada en la base de datos",
+                               "Error del Sistema",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\nupdateMultiAccount", "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public Account selectAccount(int Id_)
         {
             string Query = "SELECT * FROM cuenta WHERE id ='" + Id_ + "';";
@@ -148,7 +188,7 @@ namespace Softband.DataAccess.DaoEntities
             MySqlDataReader reader;
 
             reader = Cmm.ExecuteReader();
-            
+
             if (reader.Read())
             {
                 newAccount.Id = (int)reader["id"];

@@ -13,7 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\AVERA\Desktop\Soft4\</PublishUrl>
+    <TargetFrameworkProfile />
+    <PublishUrl>D:\SoftbandV32\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -22,8 +23,12 @@
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>6</ApplicationRevision>
+    <MapFileExtensions>false</MapFileExtensions>
+    <ProductName>Softband</ProductName>
+    <PublisherName>LA SALA ESTUDIO</PublisherName>
+    <SuiteName>Softband</SuiteName>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>35</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -35,19 +40,25 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>
+    </DocumentationFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>6A6D761AF897D45C59AFEA6F9D892F01803015D1</ManifestCertificateThumbprint>
@@ -65,12 +76,21 @@
     <StartupObject>Softband.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Logo-La-Sala.ico</ApplicationIcon>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Softband.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>Custom</TargetZone>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bunifu_UI_v1.4">
-      <HintPath>C:\Users\georg\Documents\Bunifu_UI_v1.4\Bunifu_UI_v1.4.dll</HintPath>
-    </Reference>
     <Reference Include="MetroFramework">
       <HintPath>C:\Users\georg\Documents\Visual Studio 2015\Projects\Holmes\Holmes\bin\Debug\MetroFramework.dll</HintPath>
     </Reference>
@@ -115,12 +135,17 @@
     <Compile Include="DataAccess\DaoEntities\DaoCategoryMovements.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoCatProduct.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoClient.cs" />
+    <Compile Include="DataAccess\DaoEntities\DaoDebt.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoFact.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoItemInvoice.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoPromo.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoProvider.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoUser.cs" />
     <Compile Include="DataAccess\DaoEntities\DaoProduct.cs" />
+    <Compile Include="DataAccess\Generics\DaoRepCompras.cs" />
+    <Compile Include="DataAccess\Generics\DaoRepFacturas.cs" />
+    <Compile Include="DataAccess\Generics\DaoRepIngEgr.cs" />
+    <Compile Include="DataAccess\Generics\DaoRepMovimientosMonetarios.cs" />
     <Compile Include="DataAccess\Generics\DaoRepVentas.cs" />
     <Compile Include="DataAccess\Generics\GenericQuerys.cs" />
     <Compile Include="DataAccess\Generics\MovesMoney.cs" />
@@ -130,12 +155,14 @@
     <Compile Include="Entities\CategoriaProduct.cs" />
     <Compile Include="Entities\CategoryMovements.cs" />
     <Compile Include="Entities\Client.cs" />
+    <Compile Include="Entities\Debt.cs" />
     <Compile Include="Entities\Invoice.cs" />
     <Compile Include="Entities\InvoiceItemcs.cs" />
     <Compile Include="Entities\MovementMoney.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Promotion.cs" />
     <Compile Include="Entities\Provider.cs" />
+    <Compile Include="Entities\Transfer.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Functions\ExportGridExcel.cs" />
     <Compile Include="Generics\Compras.cs">
@@ -167,6 +194,12 @@
     </Compile>
     <Compile Include="Generics\MovCuentas.Designer.cs">
       <DependentUpon>MovCuentas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generics\RevertirFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generics\RevertirFactura.Designer.cs">
+      <DependentUpon>RevertirFactura.cs</DependentUpon>
     </Compile>
     <Compile Include="Generics\Ventas.cs">
       <SubType>Form</SubType>
@@ -216,17 +249,17 @@
     <Compile Include="Mae\Cuentas.Designer.cs">
       <DependentUpon>Cuentas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mae\Deudas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mae\Deudas.Designer.cs">
+      <DependentUpon>Deudas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mae\Productos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Mae\Productos.Designer.cs">
       <DependentUpon>Productos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Mae\Promo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Mae\Promo.Designer.cs">
-      <DependentUpon>Promo.cs</DependentUpon>
     </Compile>
     <Compile Include="Mae\Proveedores.cs">
       <SubType>Form</SubType>
@@ -240,8 +273,62 @@
     <Compile Include="Mae\Usuarios.Designer.cs">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mae\VistaDetalleFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mae\VistaDetalleFactura.Designer.cs">
+      <DependentUpon>VistaDetalleFactura.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\ComprasAno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\ComprasAno.Designer.cs">
+      <DependentUpon>ComprasAno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ComprasDias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\ComprasDias.Designer.cs">
+      <DependentUpon>ComprasDias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ComprasMes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\ComprasMes.Designer.cs">
+      <DependentUpon>ComprasMes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\FacturasDia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\FacturasDia.Designer.cs">
+      <DependentUpon>FacturasDia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RepMovimientosMonetariosMensuales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\RepMovimientosMonetariosMensuales.Designer.cs">
+      <DependentUpon>RepMovimientosMonetariosMensuales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Reports\IngresosEgresos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\Reports\IngresosEgresos.Designer.cs">
+      <DependentUpon>IngresosEgresos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Reports\IngresosEgresosAno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\Reports\IngresosEgresosAno.Designer.cs">
+      <DependentUpon>IngresosEgresosAno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Reports\IngresosEgresosMes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\Reports\IngresosEgresosMes.Designer.cs">
+      <DependentUpon>IngresosEgresosMes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\VentasAnual.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -279,6 +366,9 @@
     <EmbeddedResource Include="Generics\MovCuentas.resx">
       <DependentUpon>MovCuentas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Generics\RevertirFactura.resx">
+      <DependentUpon>RevertirFactura.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Generics\Ventas.resx">
       <DependentUpon>Ventas.cs</DependentUpon>
     </EmbeddedResource>
@@ -303,11 +393,11 @@
     <EmbeddedResource Include="Mae\Cuentas.resx">
       <DependentUpon>Cuentas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mae\Deudas.resx">
+      <DependentUpon>Deudas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Mae\Productos.resx">
       <DependentUpon>Productos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mae\Promo.resx">
-      <DependentUpon>Promo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mae\Proveedores.resx">
       <DependentUpon>Proveedores.cs</DependentUpon>
@@ -315,8 +405,11 @@
     <EmbeddedResource Include="Mae\Usuarios.resx">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mae\VistaDetalleFactura.resx">
+      <DependentUpon>VistaDetalleFactura.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -325,6 +418,30 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Reports\ComprasAno.resx">
+      <DependentUpon>ComprasAno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ComprasDias.resx">
+      <DependentUpon>ComprasDias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ComprasMes.resx">
+      <DependentUpon>ComprasMes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\FacturasDia.resx">
+      <DependentUpon>FacturasDia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RepMovimientosMonetariosMensuales.resx">
+      <DependentUpon>RepMovimientosMonetariosMensuales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Reports\IngresosEgresos.resx">
+      <DependentUpon>IngresosEgresos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Reports\IngresosEgresosAno.resx">
+      <DependentUpon>IngresosEgresosAno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Reports\IngresosEgresosMes.resx">
+      <DependentUpon>IngresosEgresosMes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\VentasAnual.resx">
       <DependentUpon>VentasAnual.cs</DependentUpon>
     </EmbeddedResource>
@@ -335,6 +452,7 @@
       <DependentUpon>VentasMes.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -344,10 +462,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Softband_TemporaryKey.pfx" />
+    <None Include="Softband.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Bandasx50.png" />
@@ -463,13 +583,12 @@
   <ItemGroup>
     <None Include="Resources\login-512.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Reports\Reports\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\login-5121.png" />
     <None Include="Resources\undo-5-256.png" />
     <None Include="Resources\excel-3-256.png" />
+    <Content Include="favicon.ico" />
     <Content Include="Logo-La-Sala.ico" />
     <None Include="Resources\fullscreen-exit-128.png" />
     <Content Include="SqlServerTypes\readme.htm" />

@@ -46,7 +46,6 @@ namespace Softband.DataAccess.DaoEntities
 
                 Cmm.ExecuteNonQuery();
 
-
                 Cmm.Connection.Close();
             }
             catch (Exception ex)

@@ -33,6 +33,10 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnCrearCategoria = new System.Windows.Forms.Button();
+            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
+            this.label4 = new System.Windows.Forms.Label();
             this.txtAmount = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cbAccount = new System.Windows.Forms.ComboBox();
@@ -43,10 +47,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.btnCrearCategoria = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -117,6 +117,53 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos de Ingresos o Egresos";
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRefresh.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnRefresh.BackgroundImage = global::Softband.Properties.Resources.undo_5_256;
+            this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRefresh.Location = new System.Drawing.Point(325, 189);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(30, 30);
+            this.btnRefresh.TabIndex = 67;
+            this.btnRefresh.UseVisualStyleBackColor = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // btnCrearCategoria
+            // 
+            this.btnCrearCategoria.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnCrearCategoria.BackgroundImage = global::Softband.Properties.Resources.plus_2_64;
+            this.btnCrearCategoria.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCrearCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCrearCategoria.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnCrearCategoria.Location = new System.Drawing.Point(361, 189);
+            this.btnCrearCategoria.Name = "btnCrearCategoria";
+            this.btnCrearCategoria.Size = new System.Drawing.Size(30, 30);
+            this.btnCrearCategoria.TabIndex = 66;
+            this.btnCrearCategoria.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCrearCategoria.UseVisualStyleBackColor = false;
+            this.btnCrearCategoria.Click += new System.EventHandler(this.btnCrearCategoria_Click);
+            // 
+            // dtpFecha
+            // 
+            this.dtpFecha.Location = new System.Drawing.Point(23, 59);
+            this.dtpFecha.Name = "dtpFecha";
+            this.dtpFecha.Size = new System.Drawing.Size(368, 26);
+            this.dtpFecha.TabIndex = 65;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label4.Location = new System.Drawing.Point(19, 36);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 20);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "Fecha:";
             // 
             // txtAmount
             // 
@@ -213,6 +260,7 @@
             // 
             // txtDescription
             // 
+            this.txtDescription.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDescription.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.txtDescription.Location = new System.Drawing.Point(23, 380);
@@ -231,53 +279,6 @@
             this.label2.Size = new System.Drawing.Size(104, 20);
             this.label2.TabIndex = 16;
             this.label2.Text = "Descripción:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label4.Location = new System.Drawing.Point(19, 36);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 20);
-            this.label4.TabIndex = 26;
-            this.label4.Text = "Fecha:";
-            // 
-            // dtpFecha
-            // 
-            this.dtpFecha.Location = new System.Drawing.Point(23, 59);
-            this.dtpFecha.Name = "dtpFecha";
-            this.dtpFecha.Size = new System.Drawing.Size(368, 26);
-            this.dtpFecha.TabIndex = 65;
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefresh.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnRefresh.BackgroundImage = global::Softband.Properties.Resources.undo_5_256;
-            this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnRefresh.Location = new System.Drawing.Point(325, 189);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(2);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(30, 30);
-            this.btnRefresh.TabIndex = 67;
-            this.btnRefresh.UseVisualStyleBackColor = false;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
-            // btnCrearCategoria
-            // 
-            this.btnCrearCategoria.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnCrearCategoria.BackgroundImage = global::Softband.Properties.Resources.plus_2_64;
-            this.btnCrearCategoria.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCrearCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCrearCategoria.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnCrearCategoria.Location = new System.Drawing.Point(361, 189);
-            this.btnCrearCategoria.Name = "btnCrearCategoria";
-            this.btnCrearCategoria.Size = new System.Drawing.Size(30, 30);
-            this.btnCrearCategoria.TabIndex = 66;
-            this.btnCrearCategoria.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCrearCategoria.UseVisualStyleBackColor = false;
-            this.btnCrearCategoria.Click += new System.EventHandler(this.btnCrearCategoria_Click);
             // 
             // IngresosYEgresos
             // 

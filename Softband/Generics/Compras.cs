@@ -233,6 +233,8 @@ namespace Softband.Generics
 
                         daoBill.updateAccount(Convert.ToInt32(cbAccountOut.SelectedValue), Convert.ToDouble(txtAmount.Text.Replace("$", "")));
                         MessageBox.Show("Compra realizada con éxito", "Información del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        this.btnClear_Click(null,null);
                     }
                     else
                     {

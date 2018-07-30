@@ -21,6 +21,7 @@ namespace Softband.Maestros
             InitializeComponent();
             FillCbCategories();
             CargarProductsGrid();
+            this.rdCodigo.Checked = true;
         }
 
         GenericQuerys GenericQuerys = new GenericQuerys();
@@ -133,12 +134,16 @@ namespace Softband.Maestros
                     newProduct.Description = txtDescriptionProduct.Text.Trim();
                     newProduct.CostSale =  Convert.ToDouble(txtCostSale.Text.Trim().Replace("$",""));
                     newProduct.CostBuy = Convert.ToDouble(txtCostBuy.Text.Trim().Replace("$", ""));
-                    newProduct.Stock = Convert.ToInt32(txtStock.Text.Trim());
+
+                    if (Convert.ToInt32(txtStock.Text.Trim()) > 0)
+                        newProduct.Stock = Convert.ToInt32(txtStock.Text.Trim());
+                    else
+                        newProduct.Stock = 0;
 
                     daoProduct.insertProduct(newProduct);
                     CargarProductsGrid();
                     MessageBox.Show("Producto guardado:\n" + newProduct.Name,
-                        "Información",
+                        "Información del sistema",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }

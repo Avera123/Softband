@@ -68,13 +68,34 @@ namespace Softband.DataAccess.DaoEntities
 
             reader = Cmm.ExecuteReader();
 
+            if (reader.Read())
+            {
+                newBand.Id = (int)reader["id"];
+                newBand.Name = (string)reader["name"];
+            }
+
             Cmm.Connection.Close();
+
+            return newBand;
+        }
+
+        public Band selectBandByID(int _ID)
+        {
+            string Query = "SELECT * FROM banda WHERE id ='" + _ID + "';";
+
+            MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
+
+            MySqlDataReader reader;
+
+            reader = Cmm.ExecuteReader();
 
             if (reader.Read())
             {
                 newBand.Id = (int)reader["id"];
                 newBand.Name = (string)reader["name"];
             }
+
+            Cmm.Connection.Close();
 
             return newBand;
         }

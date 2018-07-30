@@ -27,8 +27,6 @@ namespace Softband.DataAccess.DaoEntities
 
             reader = Cmm.ExecuteReader();
 
-            Cmm.Connection.Close();
-
             if (reader.HasRows)
             {
                 while (reader.Read())
@@ -44,6 +42,8 @@ namespace Softband.DataAccess.DaoEntities
                     ListUsers.Add(newUser);
                 }
             }
+
+            Cmm.Connection.Close();
 
             return ListUsers;
         }
@@ -93,9 +93,7 @@ namespace Softband.DataAccess.DaoEntities
             MySqlDataReader reader;
 
             reader = Cmm.ExecuteReader();
-
-            Cmm.Connection.Close();
-
+            
             if (reader.Read())
             {
                 newUser.Id = (int)reader["id"];
@@ -106,6 +104,7 @@ namespace Softband.DataAccess.DaoEntities
                 newUser.Active = (bool)reader["active"];
             }
 
+            Cmm.Connection.Close();
             return newUser;
         }
 
@@ -118,8 +117,6 @@ namespace Softband.DataAccess.DaoEntities
             MySqlDataReader reader;
 
             reader = Cmm.ExecuteReader();
-
-            Cmm.Connection.Close();
 
             if (reader.HasRows)
             {

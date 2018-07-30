@@ -2,6 +2,7 @@
 using Softband.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,6 +48,22 @@ namespace Softband.DataAccess.DaoEntities
             }
 
             return ListAccount;
+        }
+
+        public DataTable fillItemsDT(string daoFac)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                MySqlDataAdapter da = new MySqlDataAdapter("SELECT * FROM facturaitem WHERE codeinvoice ='"+daoFac+"';", ConectDB.getConection());
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en la carga de items: " + ex.Message);
+            }
+
+            return dt;
         }
 
         public void insertItemInvoice(InvoiceItemcs _ItemInvoice)

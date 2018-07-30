@@ -36,16 +36,16 @@ namespace Softband.DataAccess.Generics
             }
         }
 
-        public void insertMovementMoneyAccount(MovementMoney _MovementMoney)
+        public void insertTransferMoneyAccount(Transfer _MovementMoney)
         {
             try
             {
-                Query = "INSERT INTO transferenciacuentas(idaccountin,idaccountout, amount) VALUES('" +
-                _MovementMoney.IdAccount.ToString() + "','" +
-                _MovementMoney.IdCatMovement.ToString() + "','" +
-                _MovementMoney.IdTypeMovement.ToString() + "','" +
+                Query = "INSERT INTO transferenciacuentas(idaccountin,idaccountout, amount, dateMove, description) VALUES('" +
+                _MovementMoney.IdAccountIn.ToString() + "','" +
+                _MovementMoney.IdAccountOut.ToString() + "','" +
                 _MovementMoney.Amount.ToString() + "','" +
-                _MovementMoney.Description.Trim() + "');";
+                _MovementMoney.Date + "','" +
+                _MovementMoney.Description + "');";
 
                 MySqlCommand Cmm = new MySqlCommand(Query, ConectDB.getConection());
                 Cmm.ExecuteNonQuery();
@@ -54,7 +54,7 @@ namespace Softband.DataAccess.Generics
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "\ninsertBand", "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message + "\ninsertBand\nQuery: " + Query, "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

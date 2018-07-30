@@ -129,8 +129,6 @@ namespace Softband
 
         private void btnPromos_Click(object sender, EventArgs e)
         {
-            Promo promo = new Promo();
-            promo.ShowDialog();
         }
 
         private void categoríasDeMovimientosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -197,6 +195,122 @@ namespace Softband
         {
             Compras comp = new Compras();
             comp.Show();
+        }
+
+        private void deudasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Deudas newDeuda = new Deudas();
+            newDeuda.Show();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Deudas newDeuda = new Deudas();
+            newDeuda.ShowDialog();
+        }
+
+        private void diarioToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ComprasDias newRepCom = new ComprasDias();
+            newRepCom.ShowDialog();
+        }
+
+        private void mensualToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ComprasMes newRepCom = new ComprasMes();
+            newRepCom.ShowDialog();
+        }
+
+        private void anualToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ComprasAno newRepCom = new ComprasAno();
+            newRepCom.ShowDialog();
+        }
+
+        private void díariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IngresosEgresos ingEgr = new IngresosEgresos();
+            ingEgr.ShowDialog();
+        }
+
+        private void mensualesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IngresosEgresosMes ingEgr = new IngresosEgresosMes();
+            ingEgr.ShowDialog();
+        }
+
+        private void anualesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IngresosEgresosAno ingEgr = new IngresosEgresosAno();
+            ingEgr.ShowDialog();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Control_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnExit_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult result = MessageBox.Show("¿Realmente desea Salir de la Aplicación?",
+                    "Confirmación",
+                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+                if (result == DialogResult.Yes)
+                {
+                    Application.Exit();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnIngresoSalida_Click_1(object sender, EventArgs e)
+        {
+            IngresosYEgresos nn = new IngresosYEgresos();
+            nn.Show();
+        }
+
+        private void btnMovimientos_Click_1(object sender, EventArgs e)
+        {
+            btnMovimientos_Click(null, null);
+        }
+
+        private void btnSales_Click_1(object sender, EventArgs e)
+        {
+            btnSales_Click(null, null);
+        }
+
+        private void button7_Click_1(object sender, EventArgs e)
+        {
+            Deudas dd = new Deudas();
+            dd.Show();
+        }
+
+        private void facturasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void diarioToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mensualToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            RepMovimientosMonetariosMensuales rep = new RepMovimientosMonetariosMensuales();
+            rep.Show();
         }
     }
 }

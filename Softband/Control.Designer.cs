@@ -52,15 +52,19 @@
             this.categoríasDeMovimientosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.ingresosEgresosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deudasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ventasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.movimientosEntreCuentasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.cuadreDeCajasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cuadreDeInventarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.comprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cuentasPorCobrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.movimientosDeCajasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mensualToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.ingresosVSEgresosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.díariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mensualesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,23 +74,21 @@
             this.diarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mensualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.anualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saldosDeCuentasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteDeComprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.diarioToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.mensualToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.anualToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.bunifuCards1 = new Bunifu.Framework.UI.BunifuCards();
-            this.btnExit = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.button7 = new System.Windows.Forms.Button();
             this.btnSales = new System.Windows.Forms.Button();
             this.btnMovimientos = new System.Windows.Forms.Button();
             this.btnIngresoSalida = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.comprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuGeneral.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.bunifuCards1.SuspendLayout();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -139,7 +141,7 @@
             // 
             this.usuariosToolStripMenuItem.Image = global::Softband.Properties.Resources.Bandasx50;
             this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
+            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
             this.usuariosToolStripMenuItem.Text = "Usuarios";
             this.usuariosToolStripMenuItem.Click += new System.EventHandler(this.usuariosToolStripMenuItem_Click);
             // 
@@ -148,7 +150,7 @@
             this.rolesToolStripMenuItem.Enabled = false;
             this.rolesToolStripMenuItem.Image = global::Softband.Properties.Resources.Bandasx50;
             this.rolesToolStripMenuItem.Name = "rolesToolStripMenuItem";
-            this.rolesToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
+            this.rolesToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
             this.rolesToolStripMenuItem.Text = "Roles";
             // 
             // permisosToolStripMenuItem
@@ -156,20 +158,20 @@
             this.permisosToolStripMenuItem.Enabled = false;
             this.permisosToolStripMenuItem.Image = global::Softband.Properties.Resources.arrow_21_64;
             this.permisosToolStripMenuItem.Name = "permisosToolStripMenuItem";
-            this.permisosToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
+            this.permisosToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
             this.permisosToolStripMenuItem.Text = "Permisos";
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(153, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(139, 6);
             // 
             // cierreDiarioToolStripMenuItem
             // 
             this.cierreDiarioToolStripMenuItem.Enabled = false;
             this.cierreDiarioToolStripMenuItem.Image = global::Softband.Properties.Resources.save_30;
             this.cierreDiarioToolStripMenuItem.Name = "cierreDiarioToolStripMenuItem";
-            this.cierreDiarioToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
+            this.cierreDiarioToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
             this.cierreDiarioToolStripMenuItem.Text = "Cierre diario";
             // 
             // maestrosToolStripMenuItem
@@ -260,6 +262,7 @@
             this.categoríasDeMovimientosToolStripMenuItem,
             this.toolStripSeparator5,
             this.ingresosEgresosToolStripMenuItem,
+            this.deudasToolStripMenuItem,
             this.ventasToolStripMenuItem,
             this.movimientosEntreCuentasToolStripMenuItem,
             this.toolStripSeparator6,
@@ -289,6 +292,14 @@
             this.ingresosEgresosToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.ingresosEgresosToolStripMenuItem.Text = "Ingresos / Egresos";
             this.ingresosEgresosToolStripMenuItem.Click += new System.EventHandler(this.ingresosEgresosToolStripMenuItem_Click);
+            // 
+            // deudasToolStripMenuItem
+            // 
+            this.deudasToolStripMenuItem.Image = global::Softband.Properties.Resources.DEUDAS;
+            this.deudasToolStripMenuItem.Name = "deudasToolStripMenuItem";
+            this.deudasToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.deudasToolStripMenuItem.Text = "Deudas";
+            this.deudasToolStripMenuItem.Click += new System.EventHandler(this.deudasToolStripMenuItem_Click);
             // 
             // ventasToolStripMenuItem
             // 
@@ -327,6 +338,22 @@
             this.cuadreDeInventarioToolStripMenuItem.Text = "Cuadre de Inventario";
             this.cuadreDeInventarioToolStripMenuItem.Click += new System.EventHandler(this.cuadreDeInventarioToolStripMenuItem_Click);
             // 
+            // comprasToolStripMenuItem
+            // 
+            this.comprasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem});
+            this.comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
+            this.comprasToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.comprasToolStripMenuItem.Text = "Compras";
+            // 
+            // registroDeComprasYActualizaciónDeInventarioToolStripMenuItem
+            // 
+            this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem.Image = global::Softband.Properties.Resources.DEUDAS;
+            this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem.Name = "registroDeComprasYActualizaciónDeInventarioToolStripMenuItem";
+            this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem.Size = new System.Drawing.Size(339, 26);
+            this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem.Text = "Registro de compras y actualización de inventario";
+            this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem.Click += new System.EventHandler(this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem_Click);
+            // 
             // reportesToolStripMenuItem
             // 
             this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -336,7 +363,8 @@
             this.ingresosVSEgresosToolStripMenuItem,
             this.toolStripSeparator4,
             this.reporteDeVentasToolStripMenuItem,
-            this.saldosDeCuentasToolStripMenuItem});
+            this.reporteDeComprasToolStripMenuItem,
+            this.toolStripSeparator8});
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
             this.reportesToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.reportesToolStripMenuItem.Text = "Reportes";
@@ -355,10 +383,18 @@
             // 
             // movimientosDeCajasToolStripMenuItem
             // 
+            this.movimientosDeCajasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mensualToolStripMenuItem3});
             this.movimientosDeCajasToolStripMenuItem.Name = "movimientosDeCajasToolStripMenuItem";
             this.movimientosDeCajasToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.movimientosDeCajasToolStripMenuItem.Text = "Movimientos de Cajas";
-            this.movimientosDeCajasToolStripMenuItem.Visible = false;
+            // 
+            // mensualToolStripMenuItem3
+            // 
+            this.mensualToolStripMenuItem3.Name = "mensualToolStripMenuItem3";
+            this.mensualToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.mensualToolStripMenuItem3.Text = "Mensual";
+            this.mensualToolStripMenuItem3.Click += new System.EventHandler(this.mensualToolStripMenuItem3_Click);
             // 
             // ingresosVSEgresosToolStripMenuItem
             // 
@@ -369,25 +405,27 @@
             this.ingresosVSEgresosToolStripMenuItem.Name = "ingresosVSEgresosToolStripMenuItem";
             this.ingresosVSEgresosToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.ingresosVSEgresosToolStripMenuItem.Text = "Ingresos VS Egresos";
-            this.ingresosVSEgresosToolStripMenuItem.Visible = false;
             // 
             // díariosToolStripMenuItem
             // 
             this.díariosToolStripMenuItem.Name = "díariosToolStripMenuItem";
             this.díariosToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.díariosToolStripMenuItem.Text = "Díarios";
+            this.díariosToolStripMenuItem.Click += new System.EventHandler(this.díariosToolStripMenuItem_Click);
             // 
             // mensualesToolStripMenuItem
             // 
             this.mensualesToolStripMenuItem.Name = "mensualesToolStripMenuItem";
             this.mensualesToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.mensualesToolStripMenuItem.Text = "Mensuales";
+            this.mensualesToolStripMenuItem.Click += new System.EventHandler(this.mensualesToolStripMenuItem_Click);
             // 
             // anualesToolStripMenuItem
             // 
             this.anualesToolStripMenuItem.Name = "anualesToolStripMenuItem";
             this.anualesToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.anualesToolStripMenuItem.Text = "Anuales";
+            this.anualesToolStripMenuItem.Click += new System.EventHandler(this.anualesToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
@@ -425,13 +463,41 @@
             this.anualToolStripMenuItem.Text = "Anual";
             this.anualToolStripMenuItem.Click += new System.EventHandler(this.anualToolStripMenuItem_Click);
             // 
-            // saldosDeCuentasToolStripMenuItem
+            // reporteDeComprasToolStripMenuItem
             // 
-            this.saldosDeCuentasToolStripMenuItem.Name = "saldosDeCuentasToolStripMenuItem";
-            this.saldosDeCuentasToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.saldosDeCuentasToolStripMenuItem.Text = "Saldos de Cuentas";
-            this.saldosDeCuentasToolStripMenuItem.Visible = false;
-            this.saldosDeCuentasToolStripMenuItem.Click += new System.EventHandler(this.saldosDeCuentasToolStripMenuItem_Click);
+            this.reporteDeComprasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.diarioToolStripMenuItem1,
+            this.mensualToolStripMenuItem1,
+            this.anualToolStripMenuItem1});
+            this.reporteDeComprasToolStripMenuItem.Name = "reporteDeComprasToolStripMenuItem";
+            this.reporteDeComprasToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.reporteDeComprasToolStripMenuItem.Text = "Reporte de Compras";
+            // 
+            // diarioToolStripMenuItem1
+            // 
+            this.diarioToolStripMenuItem1.Name = "diarioToolStripMenuItem1";
+            this.diarioToolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
+            this.diarioToolStripMenuItem1.Text = "Diario";
+            this.diarioToolStripMenuItem1.Click += new System.EventHandler(this.diarioToolStripMenuItem1_Click);
+            // 
+            // mensualToolStripMenuItem1
+            // 
+            this.mensualToolStripMenuItem1.Name = "mensualToolStripMenuItem1";
+            this.mensualToolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
+            this.mensualToolStripMenuItem1.Text = "Mensual";
+            this.mensualToolStripMenuItem1.Click += new System.EventHandler(this.mensualToolStripMenuItem1_Click);
+            // 
+            // anualToolStripMenuItem1
+            // 
+            this.anualToolStripMenuItem1.Name = "anualToolStripMenuItem1";
+            this.anualToolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
+            this.anualToolStripMenuItem1.Text = "Anual";
+            this.anualToolStripMenuItem1.Click += new System.EventHandler(this.anualToolStripMenuItem1_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(188, 6);
             // 
             // statusStrip1
             // 
@@ -451,25 +517,77 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(88, 17);
             this.toolStripStatusLabel1.Text = "Ventana abierta";
             // 
-            // bunifuCards1
+            // button7
             // 
-            this.bunifuCards1.BackColor = System.Drawing.Color.White;
-            this.bunifuCards1.BorderRadius = 5;
-            this.bunifuCards1.BottomSahddow = true;
-            this.bunifuCards1.color = System.Drawing.Color.Red;
-            this.bunifuCards1.Controls.Add(this.btnExit);
-            this.bunifuCards1.Controls.Add(this.panel1);
-            this.bunifuCards1.Controls.Add(this.pictureBox1);
-            this.bunifuCards1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bunifuCards1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuCards1.LeftSahddow = false;
-            this.bunifuCards1.Location = new System.Drawing.Point(0, 24);
-            this.bunifuCards1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.bunifuCards1.Name = "bunifuCards1";
-            this.bunifuCards1.RightSahddow = true;
-            this.bunifuCards1.ShadowDepth = 20;
-            this.bunifuCards1.Size = new System.Drawing.Size(1276, 630);
-            this.bunifuCards1.TabIndex = 3;
+            this.button7.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.button7.BackgroundImage = global::Softband.Properties.Resources.DEUDAS;
+            this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.button7.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button7.Location = new System.Drawing.Point(301, 28);
+            this.button7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(96, 90);
+            this.button7.TabIndex = 15;
+            this.button7.Text = "DEUDAS";
+            this.button7.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click_1);
+            // 
+            // btnSales
+            // 
+            this.btnSales.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnSales.BackgroundImage = global::Softband.Properties.Resources.VENTA2;
+            this.btnSales.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSales.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSales.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnSales.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnSales.Location = new System.Drawing.Point(204, 28);
+            this.btnSales.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnSales.Name = "btnSales";
+            this.btnSales.Size = new System.Drawing.Size(97, 90);
+            this.btnSales.TabIndex = 14;
+            this.btnSales.Text = "VENTAS";
+            this.btnSales.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSales.UseVisualStyleBackColor = false;
+            this.btnSales.Click += new System.EventHandler(this.btnSales_Click_1);
+            // 
+            // btnMovimientos
+            // 
+            this.btnMovimientos.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnMovimientos.BackgroundImage = global::Softband.Properties.Resources.TRANSACCIONES21;
+            this.btnMovimientos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnMovimientos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMovimientos.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnMovimientos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnMovimientos.Location = new System.Drawing.Point(103, 28);
+            this.btnMovimientos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnMovimientos.Name = "btnMovimientos";
+            this.btnMovimientos.Size = new System.Drawing.Size(101, 90);
+            this.btnMovimientos.TabIndex = 13;
+            this.btnMovimientos.Text = "MOVIMIENTO";
+            this.btnMovimientos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnMovimientos.UseVisualStyleBackColor = false;
+            this.btnMovimientos.Click += new System.EventHandler(this.btnMovimientos_Click_1);
+            // 
+            // btnIngresoSalida
+            // 
+            this.btnIngresoSalida.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnIngresoSalida.BackgroundImage = global::Softband.Properties.Resources.INGRESOSSALIDAS;
+            this.btnIngresoSalida.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnIngresoSalida.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIngresoSalida.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnIngresoSalida.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnIngresoSalida.Location = new System.Drawing.Point(3, 28);
+            this.btnIngresoSalida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnIngresoSalida.Name = "btnIngresoSalida";
+            this.btnIngresoSalida.Size = new System.Drawing.Size(100, 90);
+            this.btnIngresoSalida.TabIndex = 11;
+            this.btnIngresoSalida.Text = "INGRESO / EGRESO";
+            this.btnIngresoSalida.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnIngresoSalida.UseVisualStyleBackColor = false;
+            this.btnIngresoSalida.Click += new System.EventHandler(this.btnIngresoSalida_Click_1);
             // 
             // btnExit
             // 
@@ -480,138 +598,39 @@
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnExit.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnExit.Location = new System.Drawing.Point(1130, 483);
+            this.btnExit.Location = new System.Drawing.Point(1120, 507);
             this.btnExit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(144, 142);
-            this.btnExit.TabIndex = 10;
+            this.btnExit.TabIndex = 16;
             this.btnExit.Text = "SALIR";
             this.btnExit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnExit.UseVisualStyleBackColor = false;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.button7);
-            this.panel1.Controls.Add(this.btnSales);
-            this.panel1.Controls.Add(this.btnMovimientos);
-            this.panel1.Controls.Add(this.btnIngresoSalida);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1276, 90);
-            this.panel1.TabIndex = 2;
-            // 
-            // button7
-            // 
-            this.button7.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button7.BackgroundImage = global::Softband.Properties.Resources.DEUDAS;
-            this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button7.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.button7.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button7.Location = new System.Drawing.Point(298, 0);
-            this.button7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(96, 90);
-            this.button7.TabIndex = 9;
-            this.button7.Text = "DEUDAS";
-            this.button7.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button7.UseVisualStyleBackColor = false;
-            this.button7.Visible = false;
-            // 
-            // btnSales
-            // 
-            this.btnSales.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnSales.BackgroundImage = global::Softband.Properties.Resources.VENTA2;
-            this.btnSales.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnSales.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnSales.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSales.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnSales.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSales.Location = new System.Drawing.Point(201, 0);
-            this.btnSales.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnSales.Name = "btnSales";
-            this.btnSales.Size = new System.Drawing.Size(97, 90);
-            this.btnSales.TabIndex = 7;
-            this.btnSales.Text = "VENTAS";
-            this.btnSales.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSales.UseVisualStyleBackColor = false;
-            this.btnSales.Click += new System.EventHandler(this.btnSales_Click);
-            // 
-            // btnMovimientos
-            // 
-            this.btnMovimientos.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnMovimientos.BackgroundImage = global::Softband.Properties.Resources.TRANSACCIONES21;
-            this.btnMovimientos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnMovimientos.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnMovimientos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMovimientos.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnMovimientos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnMovimientos.Location = new System.Drawing.Point(100, 0);
-            this.btnMovimientos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnMovimientos.Name = "btnMovimientos";
-            this.btnMovimientos.Size = new System.Drawing.Size(101, 90);
-            this.btnMovimientos.TabIndex = 5;
-            this.btnMovimientos.Text = "MOVIMIENTO";
-            this.btnMovimientos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnMovimientos.UseVisualStyleBackColor = false;
-            this.btnMovimientos.Click += new System.EventHandler(this.btnMovimientos_Click);
-            // 
-            // btnIngresoSalida
-            // 
-            this.btnIngresoSalida.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnIngresoSalida.BackgroundImage = global::Softband.Properties.Resources.INGRESOSSALIDAS;
-            this.btnIngresoSalida.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnIngresoSalida.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnIngresoSalida.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIngresoSalida.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnIngresoSalida.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnIngresoSalida.Location = new System.Drawing.Point(0, 0);
-            this.btnIngresoSalida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnIngresoSalida.Name = "btnIngresoSalida";
-            this.btnIngresoSalida.Size = new System.Drawing.Size(100, 90);
-            this.btnIngresoSalida.TabIndex = 0;
-            this.btnIngresoSalida.Text = "INGRESO / SALIDA";
-            this.btnIngresoSalida.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnIngresoSalida.UseVisualStyleBackColor = false;
-            this.btnIngresoSalida.Click += new System.EventHandler(this.btnIngresoSalida_Click);
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click_1);
             // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox1.Image = global::Softband.Properties.Resources.Logo_La_Sala;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 443);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 462);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(310, 187);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
-            // 
-            // comprasToolStripMenuItem
-            // 
-            this.comprasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem});
-            this.comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
-            this.comprasToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
-            this.comprasToolStripMenuItem.Text = "Compras";
-            // 
-            // registroDeComprasYActualizaciónDeInventarioToolStripMenuItem
-            // 
-            this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem.Image = global::Softband.Properties.Resources.DEUDAS;
-            this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem.Name = "registroDeComprasYActualizaciónDeInventarioToolStripMenuItem";
-            this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem.Size = new System.Drawing.Size(339, 26);
-            this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem.Text = "Registro de compras y actualización de inventario";
-            this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem.Click += new System.EventHandler(this.registroDeComprasYActualizaciónDeInventarioToolStripMenuItem_Click);
             // 
             // Control
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1276, 676);
-            this.Controls.Add(this.bunifuCards1);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.btnSales);
+            this.Controls.Add(this.btnMovimientos);
+            this.Controls.Add(this.btnIngresoSalida);
+            this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.MenuGeneral);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -624,12 +643,11 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Control - La Sala Estudio";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Control_Load);
             this.MenuGeneral.ResumeLayout(false);
             this.MenuGeneral.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.bunifuCards1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -649,26 +667,17 @@
         private System.Windows.Forms.ToolStripMenuItem bandasToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private Bunifu.Framework.UI.BunifuCards bunifuCards1;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem cuentasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bancosToolStripMenuItem;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnIngresoSalida;
-        private System.Windows.Forms.Button btnMovimientos;
-        private System.Windows.Forms.Button btnSales;
         private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.ToolStripMenuItem movimientosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cuentasPorCobrarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem movimientosDeCajasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ingresosVSEgresosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reporteDeVentasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saldosDeCuentasToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem categoríasDeMovimientosToolStripMenuItem;
@@ -692,5 +701,18 @@
         private System.Windows.Forms.ToolStripMenuItem cuadreDeInventarioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem comprasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registroDeComprasYActualizaciónDeInventarioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deudasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reporteDeComprasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem diarioToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem mensualToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem anualToolStripMenuItem1;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button btnSales;
+        private System.Windows.Forms.Button btnMovimientos;
+        private System.Windows.Forms.Button btnIngresoSalida;
+        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem mensualToolStripMenuItem3;
     }
 }

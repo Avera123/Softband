@@ -95,6 +95,7 @@
             this.txtStock.Name = "txtStock";
             this.txtStock.Size = new System.Drawing.Size(282, 27);
             this.txtStock.TabIndex = 35;
+            this.txtStock.Text = "1";
             this.txtStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label9
